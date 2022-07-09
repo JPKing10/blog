@@ -6,6 +6,8 @@ aliases = ["/posts/hackerrank-projecteuler-227-writeup/", "/posts/hackerrank-pro
 +++
 A long long time ago I solved [The Chase (Project Euler 227) on HackerRank](https://www.hackerrank.com/contests/projecteuler/challenges/euler227). It took me a long time to figure it out, so I wrote up these notes. 
 
+<!-- more -->
+
 [Bayleef](https://www.hackerrank.com/profile/bayleef) amended the problem from the original and it is a bit more complicated. Namely, it requires an exact answer. And the inputs can be rather large, so we need to make sure our algorithm is efficient.
 
 ## The problem
