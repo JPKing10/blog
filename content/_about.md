@@ -13,8 +13,6 @@ In the past I've studied computer science and some mathematics[^1], developed a 
 ###### Contact
 If you want to chat about my idea, technology, games or anything else that's interesting, please email me: [james@jamespking.com](mailto:james@jamespking.com).
 
-$O(N^2)$ does inline Latex work?
-
 ---
 [^1]: Also at University of Southampton.
 
