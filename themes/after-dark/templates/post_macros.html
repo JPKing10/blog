@@ -1,0 +1,60 @@
+{% macro meta(page) %}
+    <svg style="margin-bottom:-3px" class="i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>{{ page.reading_time }} minute read</span>
+    <svg style="margin-bottom: -3px" class="i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    {% if page.date %} Updated {{ page.date | date(format="%F") }}{% endif %}
+{% endmacro meta %}
+
+{% macro page_in_list(page) %}
+    <article itemscope itemtype="http://schema.org/CreativeWork">
+        <header>
+            <h2 itemprop="name">
+                <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+            </h2>
+            <span class="muted">{{ self::meta(page=page) }}</span>
+        </header>
+        {% if page.summary %}
+            <div itemprop="summary">
+                {{ page.summary | safe }}
+                <nav class="readmore"><a itemprop="url" href="{{ page.permalink | safe }}">Read More&nbsp;&raquo;</a></nav>
+            </div>
+        {% endif %}
+    </article>
+{% endmacro page_in_list %}
+
+{% macro include_katex(page) %}
+	<!-- Katex macro -->
+	{% if page.extra["latex"] %}
+		<!-- Enable Katex for nice Latex -->
+	      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+	    onload="renderMathInElement(document.body);"></script>
+		<script>
+		    document.addEventListener("DOMContentLoaded", function() {
+			renderMathInElement(document.body, {
+			  // customised options
+			  // • auto-render specific keys, e.g.:
+			  delimiters: [
+			      {left: '$$', right: '$$', display: true},
+			      {left: '$', right: '$', display: false},
+			      {left: '\\(', right: '\\)', display: false},
+			      {left: '\\[', right: '\\]', display: true}
+			  ],
+			  // • rendering keys, e.g.:
+			  throwOnError : false
+			});
+		    });
+		</script>
+	{% endif %}
+{% endmacro include_katex %}
