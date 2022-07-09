@@ -1,0 +1,95 @@
+/* JPK's 'enhancements' */
+/* Colours from Gruvbox https://github.com/morhetz/gruvbox */
+
+$fg-color: #fbf1c7;
+$fg-muted-color: #928374;
+$fg-code: #458588;
+$link-color: #458588;
+$link-color-focus: #83a598;
+$heading-link-color: #b8bb26;
+
+
+.hack, .hack blockquote, .hack em, .hack h1, .hack h2, .hack h3, .hack h4, .hack h5, .hack h6, .hack strong, .hack p {
+	color: $fg-color;
+	font-size: 1.15rem;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+span .katex {
+	font-size: 1.15rem;
+}
+
+.hack h1 {
+	font-size: 2rem;
+}
+
+.hack h2 {
+	font-size: 1.75rem;
+}
+
+.hack h3, h4, h5, h6 {
+	font-size: 1.5rem;
+}
+
+.hack h2, .hack h3, .hack h4, .hack h5, .hack h6 {
+	margin-bottom: 1rem;
+}
+
+article [itemprop="summary"] p {
+	margin-bottom: 0.5rem;
+}
+
+.dark h1 a, .dark h2 a, .dark h3 a, .dark h4 a, .dark h5 a {
+	color: $heading-link-color;
+}
+
+.hack a {
+	color: $link-color;
+	border-bottom: 1px solid $link-color;
+}
+
+a[href*="://"]::after, a[rel*="external"] {
+	content: "";
+}
+
+.hack a:hover {
+	background: None;
+  color: $link-color-focus;
+}
+
+.hack code {
+	color: $fg-code;
+}
+
+.muted {
+	color: $fg-muted-color;
+}
+
+.hack header {
+	margin-top: 15px;
+}
+
+.navbar {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.navbar a {
+	margin-right: 50px;
+}
+
+.dark table {         
+  color: $fg-color;          
+}                           
+                                                         
+.dark table td, .dark table th {
+  border-color: $fg-muted-color;
+}                  
+                    
+.dark table tbody td:first-child {
+  color: $fg-color;            
+}
+
+table thead th {
+	font-size: 1.2rem;
+}
