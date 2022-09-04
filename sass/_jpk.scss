@@ -39,6 +39,10 @@ article [itemprop="summary"] p {
 	margin-bottom: 0.5rem;
 }
 
+.footnote-definition p {
+	margin-top: 1px;
+}
+
 .dark h1 a, .dark h2 a, .dark h3 a, .dark h4 a, .dark h5 a {
 	color: $heading-link-color;
 }
