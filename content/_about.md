@@ -6,7 +6,7 @@ draft = false
 extra = {"latex" = false}
 +++
 
-Backend software engineer working on Execute, a FICC trading application at JPMorganChase markets. Prior to that I:
+Backend software engineer working on Execute, a FICC trading platform at JPMorganChase markets. Prior to that I:
 * spent some time researching multi-agent collaboration in constrained communication games
 * built a microservice tester for JPMorganChase payments
 * studied some foundational CS: basic coding (Java, C, Python, Haskell), AI (classical, vison, NLP, deep learning), distributed systems
