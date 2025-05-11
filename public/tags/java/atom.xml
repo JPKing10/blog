@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Notes - java</title>
+    <link rel="self" type="application/atom+xml" href="https://www.jamespking.com/tags/java/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://www.jamespking.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-05-11T00:00:00+00:00</updated>
+    <id>https://www.jamespking.com/tags/java/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Java Garbage Collection</title>
+        <published>2025-05-11T00:00:00+00:00</published>
+        <updated>2025-05-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              JPK
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jamespking.com/java-garbage-collection/"/>
+        <id>https://www.jamespking.com/java-garbage-collection/</id>
+        
+        <content type="html" xml:base="https://www.jamespking.com/java-garbage-collection/">&lt;ul&gt;
+&lt;li&gt;Some simple notes on JVM heap memory and garbage collector (HotSpot)&lt;&#x2F;li&gt;
+&lt;li&gt;Todo: Z1&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;jvm-heap-garbage-collection-basics&quot;&gt;JVM Heap &amp;amp; Garbage Collection Basics&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;All objects live in a memory region called the &lt;strong&gt;Java heap&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;A garbage collector automates memory management on the heap
+&lt;ul&gt;
+&lt;li&gt;It allocates and deallocates memory&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Note:&lt;&#x2F;strong&gt; The term &quot;garbage collector&quot; might be misleading; &quot;memory manager&quot; could be more accurate&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;The heap size can grow during execution up to a specified maximum size&lt;&#x2F;li&gt;
+&lt;li&gt;The heap is organized into different regions to make GC more efficient&lt;&#x2F;li&gt;
+&lt;li&gt;When regions become full, a GC cycle is triggered to clear out unused objects&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;the-gc-cycle&quot;&gt;The GC Cycle&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Mark&lt;&#x2F;strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Unused objects (those without live references) are identified&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;em&gt;Simple approach:&lt;&#x2F;em&gt; start from root objects, follow all references, and mark every reached object as live&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Sweep&#x2F;Delete&lt;&#x2F;strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Marked (dead) objects are removed&lt;&#x2F;li&gt;
+&lt;li&gt;The allocator tracks the freed spaces for future allocations&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Compaction (optional)&lt;&#x2F;strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Free spaces can become fragmented between live objects&lt;&#x2F;li&gt;
+&lt;li&gt;The JVM may compact memory by shifting live objects to create one contiguous free region&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Reuse or Return&lt;&#x2F;strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Freed memory is either returned to the OS or reused for new objects&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;gc-pause-modes&quot;&gt;GC Pause Modes&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Stop-the-World&lt;&#x2F;strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Application threads are suspended while GC runs&lt;&#x2F;li&gt;
+&lt;li&gt;Simpler (no concurrent mutations)&lt;&#x2F;li&gt;
+&lt;li&gt;Suitable for &lt;strong&gt;throughput-oriented&lt;&#x2F;strong&gt; workloads (e.g., batch servers)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Concurrent &#x2F; Pause-Free&lt;&#x2F;strong&gt;
+&lt;ul&gt;
+&lt;li&gt;GC runs alongside the application&lt;&#x2F;li&gt;
+&lt;li&gt;More complex (must handle object mutations in real-time)&lt;&#x2F;li&gt;
+&lt;li&gt;Occasional short pauses may still occur&lt;&#x2F;li&gt;
+&lt;li&gt;Suitable for &lt;strong&gt;latency-sensitive&lt;&#x2F;strong&gt; applications&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;HotSpot&lt;&#x2F;strong&gt; uses a mix of both approaches&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;generational-garbage-collection&quot;&gt;Generational Garbage Collection&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Based on the observation that objects tend to have different lifetimes:
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Young&lt;&#x2F;strong&gt; (short-lived)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Tenured&#x2F;Old&lt;&#x2F;strong&gt; (long-lived)&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Partitioning&lt;&#x2F;strong&gt; the heap by age limits how much the GC must scan each cycle&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Minor GC&lt;&#x2F;strong&gt;: triggers when the &lt;strong&gt;Young&lt;&#x2F;strong&gt; generation fills
+&lt;ul&gt;
+&lt;li&gt;Targets only Young gen → faster, since most objects are dead&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Major GC&lt;&#x2F;strong&gt; (or Full GC): triggers when the &lt;strong&gt;Old&lt;&#x2F;strong&gt; generation fills
+&lt;ul&gt;
+&lt;li&gt;Scans the entire heap, but runs much less often&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Live objects surviving Young-gen GCs get &lt;strong&gt;promoted&lt;&#x2F;strong&gt; to the Old generation&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;young-generation-layout&quot;&gt;Young Generation Layout&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Eden&lt;&#x2F;strong&gt; + &lt;strong&gt;Two Survivor Spaces&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;On each Minor GC:
+&lt;ol&gt;
+&lt;li&gt;Eden + one Survivor space are emptied&lt;&#x2F;li&gt;
+&lt;li&gt;Live objects from Eden and the other Survivor are copied into the empty Survivor&lt;&#x2F;li&gt;
+&lt;li&gt;Objects that survive enough cycles (or if Survivor fills) are promoted to Old&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;hotspot-gc-tuning&quot;&gt;HotSpot GC Tuning&lt;&#x2F;h2&gt;
+&lt;p&gt;Key goals: &lt;strong&gt;pause-time&lt;&#x2F;strong&gt;, &lt;strong&gt;throughput&lt;&#x2F;strong&gt;, and &lt;strong&gt;heap size&lt;&#x2F;strong&gt;. HotSpot may adjust heap and GC frequency at runtime to meet targets.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;logging&quot;&gt;Logging&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-Xlog:gc*    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Log all GC-related messages
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;pause-time-goal&quot;&gt;Pause-Time Goal&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-XX:MaxGCPauseMillis&lt;&#x2F;span&gt;&lt;span&gt;=&amp;lt;ms&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Sets a target for the maximum pause time in milliseconds&lt;&#x2F;li&gt;
+&lt;li&gt;The JVM will attempt to meet this goal, but it&#x27;s not guaranteed&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Note:&lt;&#x2F;strong&gt; Setting this value too low may lead to frequent GC cycles and reduced throughput&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;throughput-goal&quot;&gt;Throughput Goal&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-XX:GCTimeRatio&lt;&#x2F;span&gt;&lt;span&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;nnn
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Defines the desirable ratio of &lt;strong&gt;application time&lt;&#x2F;strong&gt; to &lt;strong&gt;GC time&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;JVM aims to keep GC time ≤ &lt;code&gt;1&#x2F;(1 + nnn)&lt;&#x2F;code&gt; of total runtime&lt;&#x2F;li&gt;
+&lt;li&gt;For example, &lt;code&gt;-XX:GCTimeRatio=19&lt;&#x2F;code&gt; sets a goal of 5% GC time and 95% application time&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;heap-size&quot;&gt;Heap Size&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-Xms&lt;&#x2F;span&gt;&lt;span&gt;=&amp;lt;size&amp;gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Initial (minimum) heap size  
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-Xmx&lt;&#x2F;span&gt;&lt;span&gt;=&amp;lt;size&amp;gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Maximum heap size (larger heaps ⇒ fewer GCs but longer pauses)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;generation-sizes&quot;&gt;Generation Sizes&lt;&#x2F;h4&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-XX:NewRatio&lt;&#x2F;span&gt;&lt;span&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;nnn    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Ratio of Old to Young gen size (default: 2)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Note:&lt;&#x2F;strong&gt; When using G1 GC, avoid setting the Young generation size explicitly (e.g., via &lt;code&gt;-Xmn&lt;&#x2F;code&gt; or &lt;code&gt;-XX:NewRatio&lt;&#x2F;code&gt;) as it may interfere with G1&#x27;s ability to meet pause-time goals.
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&quot;https:&#x2F;&#x2F;blog.gceasy.io&#x2F;simple-effective-g1-gc-tuning-tips&#x2F;&quot;&gt;Simple &amp;amp; effective Java G1 GC tuning tips&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;further-reading&quot;&gt;Further Reading&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.oracle.com&#x2F;technetwork&#x2F;java&#x2F;javase&#x2F;memorymanagement-whitepaper-150215.pdf&quot;&gt;Java Memory Management White Paper&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.oracle.com&#x2F;webfolder&#x2F;technetwork&#x2F;tutorials&#x2F;obe&#x2F;java&#x2F;gc01&#x2F;index.html&quot;&gt;Garbage Collection Tutorial&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.oracle.com&#x2F;en&#x2F;java&#x2F;javase&#x2F;21&#x2F;core&#x2F;memory-segments-and-arenas.html&quot;&gt;Memory Segments and Arenas in Java&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.oracle.com&#x2F;en&#x2F;java&#x2F;javase&#x2F;17&#x2F;gctuning&quot;&gt;Java Garbage Collection Tuning&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.oracle.com&#x2F;java&#x2F;technologies&#x2F;javase&#x2F;vmoptions-jsp.html&quot;&gt;Java Virtual Machine Options&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+</feed>

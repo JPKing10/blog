@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"  lang="en" >
 <head>
-	<!-- 2025-05-10 Sat 23:58 -->
+	<!-- 2025-05-11 Sun 02:44 -->
 	<meta charset="UTF-8" />
 	<meta name="description" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,19 +15,63 @@
 
 			<link type="text/css" rel="stylesheet" href="https://www.jamespking.com/style.css" />
 			<script type="text/javascript" defer  src="https://www.jamespking.com/closable.js"></script>
+			<script type="text/javascript" defer  src="https://www.jamespking.com/elasticlunr.min.js"></script>
+			<script type="text/javascript" defer  src="https://www.jamespking.com/search-elasticlunr.js"></script>
 
 	<meta property="og:site_name" content="Notes" />
 	<meta property="og:title" content="HackerRank The Chase Writeup - Notes" />
 	<meta property="og:url" content="https://www.jamespking.com/hackerrank227/" />
-	<meta property="og:description" content="" /><meta property="og:image" content="https://www.jamespking.com/card.png" /><meta property="og:locale" content="en_US" />
+	<meta property="og:description" content="Notes on what I learned solving The Chase. " /><meta property="og:image" content="https://www.jamespking.com/card.png" /><meta property="og:locale" content="en_US" />
 </head>
 
 <body>
-<main id="main-content">
+
 		
-<h1>HackerRank The Chase Writeup</h1><p>A long long time ago I solved <a href="https://www.hackerrank.com/contests/projecteuler/challenges/euler227">The Chase (Project Euler 227) on HackerRank</a>. It took me a long time to figure it out, so I wrote up these notes.</p>
-<span id="continue-reading"></span>
-<p><a href="https://www.hackerrank.com/profile/bayleef">Bayleef</a> amended the problem from the original and it is a bit more complicated. Namely, it requires an exact answer. And the inputs can be rather large, so we need to make sure our algorithm is efficient.</p>
+<header id="site-nav">
+	<nav>
+		<a href="#main-content" tabindex="0">
+			Skip to Main Content
+		</a>
+		<ul>
+			<li id="home">
+				<a href="https://www.jamespking.com">
+					<i class="icon"></i>Notes</a>
+			</li>
+			<li class="divider"></li>
+					<li>
+						<a href="https://www.jamespking.com/about">About</a>
+					</li>
+				<li id="search">
+					<button id="search-toggle" class="circle" title="Search">
+						<i class="icon"></i>
+					</button>
+				</li>
+		</ul>
+	</nav>
+		<div id="search-container">
+			<label for="search-bar" class="visually-hidden">Search</label>
+			<input id="search-bar" placeholder="Search for…" autocomplete="off" type="search" disabled>
+			<div id="search-results-container">
+				<div id="search-results"></div>
+			</div>
+		</div>
+</header>
+<main id="main-content">
+		<article><div id="heading"><p>
+				<small>
+					<time datetime=" 2019-03-20T00:00:00+00:00">Published on
+						March 20, 2019</time></small>
+			</p><h1>HackerRank The Chase Writeup</h1>
+				<ul class="tags"><li><a class="tag" href="https://www.jamespking.com/tags/hackerrank/">HackerRank</a></li><li><a class="tag" href="https://www.jamespking.com/tags/projecteuler/">ProjectEuler+</a></li><li><a class="tag" href="https://www.jamespking.com/tags/probability/">Probability</a></li>
+				</ul>
+	</div>
+
+	<div id="buttons-container"><a id="go-to-top" href="#top" title="Go to Top"><i class="icon"></i></a></div><div class="statement-container archive">
+		<strong class="title">
+			<i class="icon"></i>Archived</strong>
+		<p>A long long time ago, before I could code, I solved <a href="https://www.hackerrank.com/contests/projecteuler/challenges/euler227">The Chase (Project Euler 227) on HackerRank</a>. At the time it was quite the achievement... so I wrote up these notes.</p>
+
+	</div><p><a href="https://www.hackerrank.com/profile/bayleef">Bayleef</a> amended the problem from the original and it is a bit more complicated. Namely, it requires an exact answer. And the inputs can be rather large, so we need to make sure our algorithm is efficient.</p>
 <h2 id="the-problem">The problem</h2>
 <p>An even number of players are playing The Chase. At the start, two players on opposite sides of a table are each given m-sided dice. On each turn, both players roll the dice. If it lands on 1, they pass it to the player on their left. If it lands on m, they pass it to the player on their right. The game ends when one player has both dice at the end of a turn.</p>
 <p>We need to answer: for n players and m-sided dice, how many turns will the game last?</p>
@@ -49,8 +93,8 @@
 <p>We call b<sup>-1</sup> the multiplicative inverse, and there are <a href="https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/">several algorithms available</a> to help us calculate it (I'll leave you to decide which to use). Rather than use division we can now multiply by the multiplicative inverse.</p>
 <h2 id="optimisations">Optimisations</h2>
 <p>To enable your code to successfully process larger inputs within the available time and memory limits you'll need to optimise.</p>
-<p>My first piece of advice is to write your solution in a fast language. I originally wrote mine in Python 3 but it timed out for test case #36 and onward. I rewrote the algorithm in C++ and successfully completed all the test cases.</p>
-<p>However, this might say more about the inefficiency of my algorithm (rather than Python). <a href="https://www.hackerrank.com/oleg_b?hr_r=1">oleg_b</a> commented in the <a href="https://www.hackerrank.com/contests/projecteuler/challenges/euler227/forum">discussion</a> that there is a Python2 solution that has a worst runtime of 2.6 secs.</p>
+<p>My first piece of advice is to write your solution in a fast language. I originally wrote mine in Python 3 but it timed out for test case #36 and onward. I rewrote the same algorithm in C++ and successfully completed all the test cases.</p>
+<p>However, there are Python solutions that can pass in the time limits, I just didn't know how to write them. <a href="https://www.hackerrank.com/oleg_b?hr_r=1">oleg_b</a> commented in the <a href="https://www.hackerrank.com/contests/projecteuler/challenges/euler227/forum">discussion</a> that there is a Python 2 solution that has a worst runtime of 2.6 secs.</p>
 <p>The next is to write out the matrix you are trying to solve (using a placeholder for the values). By doing this you should be able to notice a number of optimisations in terms of memory usage and the number times your code loops.</p>
 <h2 id="further-reading">Further reading</h2>
 <p>I hope that this gives you some extra insight into how to solve the problem without taking away all the fun. If you'd like to learn more about the techniques I used then I suggest reviewing the following:</p>
@@ -61,7 +105,7 @@
 <li><a href="https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/">Modular multiplicative inverse on GeeksforGeeks</a></li>
 </ol>
 
-
+</article>
 		
 	<span id="search-index" class="hidden">https://www.jamespking.com/search_index.en.json</span>
 	<span id="more-matches-text" class="hidden">$MATCHES more matches</span>

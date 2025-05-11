@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Notes - ProjectEuler+</title>
+    <link rel="self" type="application/atom+xml" href="https://www.jamespking.com/tags/projecteuler/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://www.jamespking.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2019-03-20T00:00:00+00:00</updated>
+    <id>https://www.jamespking.com/tags/projecteuler/atom.xml</id>
+    <entry xml:lang="en">
+        <title>HackerRank The Chase Writeup</title>
+        <published>2019-03-20T00:00:00+00:00</published>
+        <updated>2019-03-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              JPK
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jamespking.com/hackerrank227/"/>
+        <id>https://www.jamespking.com/hackerrank227/</id>
+        
+        <content type="html" xml:base="https://www.jamespking.com/hackerrank227/">&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.hackerrank.com&#x2F;profile&#x2F;bayleef&quot;&gt;Bayleef&lt;&#x2F;a&gt; amended the problem from the original and it is a bit more complicated. Namely, it requires an exact answer. And the inputs can be rather large, so we need to make sure our algorithm is efficient.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;&#x2F;h2&gt;
+&lt;p&gt;An even number of players are playing The Chase. At the start, two players on opposite sides of a table are each given m-sided dice. On each turn, both players roll the dice. If it lands on 1, they pass it to the player on their left. If it lands on m, they pass it to the player on their right. The game ends when one player has both dice at the end of a turn.&lt;&#x2F;p&gt;
+&lt;p&gt;We need to answer: for n players and m-sided dice, how many turns will the game last?&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;modulo-109-9&quot;&gt;Modulo 10&lt;sup&gt;9&lt;&#x2F;sup&gt; + 9&lt;&#x2F;h2&gt;
+&lt;p&gt;The numbers we could be dealing with in our solution could get quite large so the result is returned modulo 10^9 + 9. In this case, you can think of modulo as a checksum. The result is that the biggest numbers used in the solution will fit into a &lt;code&gt;long long&lt;&#x2F;code&gt; and most variables will fit into an &lt;code&gt;int&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;You can learn more about why modulo is needed and how to approach questions involving it in &lt;a href=&quot;https:&#x2F;&#x2F;www.hackerearth.com&#x2F;practice&#x2F;notes&#x2F;abhinav92003&#x2F;why-output-the-answer-modulo-109-7&#x2F;&quot;&gt;A. Sharma&#x27;s article&lt;&#x2F;a&gt;. However, I&#x27;ll outline the basics here.&lt;&#x2F;p&gt;
+&lt;p&gt;The first important thing to note is that the question requires an &lt;strong&gt;exact answer&lt;&#x2F;strong&gt;. If you have a solution to the original Project Euler problem, you probably took an approach which gave an approximate answer (to the precision specified in the original problem). That&#x27;s not going to work here. To start figuring out an approach, you might want to look at &lt;a href=&quot;http:&#x2F;&#x2F;www.dartmouth.edu&#x2F;~chance&#x2F;teaching_aids&#x2F;books_articles&#x2F;probability_book&#x2F;amsbook.mac.pdf&quot;&gt;Markov chains&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The modulo operation has the following distributive properties:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;(a + b) % c == ((a % c) + (b % c)) % c
+&lt;&#x2F;span&gt;&lt;span&gt;(a - b) % c == ((a % c) - (b % c)) % c
+&lt;&#x2F;span&gt;&lt;span&gt;(a * b) % c == ((a % c) * (b % c)) % c
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;However, modulo is &lt;em&gt;not&lt;&#x2F;em&gt; distributive over division:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;(a &#x2F; b) % c != ((a % c) &#x2F; (b % c)) % c
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To approach division under modulo, we instead multiply by the inverse of the divisor:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;a &#x2F; b == a * b^-1
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We call b&lt;sup&gt;-1&lt;&#x2F;sup&gt; the multiplicative inverse, and there are &lt;a href=&quot;https:&#x2F;&#x2F;www.geeksforgeeks.org&#x2F;multiplicative-inverse-under-modulo-m&#x2F;&quot;&gt;several algorithms available&lt;&#x2F;a&gt; to help us calculate it (I&#x27;ll leave you to decide which to use). Rather than use division we can now multiply by the multiplicative inverse.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;optimisations&quot;&gt;Optimisations&lt;&#x2F;h2&gt;
+&lt;p&gt;To enable your code to successfully process larger inputs within the available time and memory limits you&#x27;ll need to optimise.&lt;&#x2F;p&gt;
+&lt;p&gt;My first piece of advice is to write your solution in a fast language. I originally wrote mine in Python 3 but it timed out for test case #36 and onward. I rewrote the same algorithm in C++ and successfully completed all the test cases.&lt;&#x2F;p&gt;
+&lt;p&gt;However, there are Python solutions that can pass in the time limits, I just didn&#x27;t know how to write them. &lt;a href=&quot;https:&#x2F;&#x2F;www.hackerrank.com&#x2F;oleg_b?hr_r=1&quot;&gt;oleg_b&lt;&#x2F;a&gt; commented in the &lt;a href=&quot;https:&#x2F;&#x2F;www.hackerrank.com&#x2F;contests&#x2F;projecteuler&#x2F;challenges&#x2F;euler227&#x2F;forum&quot;&gt;discussion&lt;&#x2F;a&gt; that there is a Python 2 solution that has a worst runtime of 2.6 secs.&lt;&#x2F;p&gt;
+&lt;p&gt;The next is to write out the matrix you are trying to solve (using a placeholder for the values). By doing this you should be able to notice a number of optimisations in terms of memory usage and the number times your code loops.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;further-reading&quot;&gt;Further reading&lt;&#x2F;h2&gt;
+&lt;p&gt;I hope that this gives you some extra insight into how to solve the problem without taking away all the fun. If you&#x27;d like to learn more about the techniques I used then I suggest reviewing the following:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;www.dartmouth.edu&#x2F;~chance&#x2F;teaching_aids&#x2F;books_articles&#x2F;probability_book&#x2F;amsbook.mac.pdf&quot;&gt;Introduction to Probability by C. Grinstead and J. Snell - Chapter 11 Markov Chains&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.hackerearth.com&#x2F;practice&#x2F;notes&#x2F;abhinav92003&#x2F;why-output-the-answer-modulo-109-7&#x2F;&quot;&gt;Why “OUTPUT THE ANSWER MODULO 10^9 + 7&quot;? by A. Sharma&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Linear Algebra and Its Applications by G. Strang (4th ed) - 1.6 Inverses and Transposes&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.geeksforgeeks.org&#x2F;multiplicative-inverse-under-modulo-m&#x2F;&quot;&gt;Modular multiplicative inverse on GeeksforGeeks&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+        
+    </entry>
+</feed>

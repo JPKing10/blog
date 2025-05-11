@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en" >
+<head>
+	<!-- 2025-05-11 Sun 02:44 -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#9a9996" />
+	<title>Java Garbage Collection - Notes</title>
+	<link rel="canonical" href="https://www.jamespking.com/java-garbage-collection/" /><link rel="icon" type="image/png" href="https://www.jamespking.com/favicon.png" />
+
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://www.jamespking.com/apple-touch-icon.png" />
+<style type="text/css">
+	:root {--accent-color: #6f8396;}</style>
+
+			<link type="text/css" rel="stylesheet" href="https://www.jamespking.com/style.css" />
+			<script type="text/javascript" defer  src="https://www.jamespking.com/closable.js"></script>
+			<script type="text/javascript" defer  src="https://www.jamespking.com/elasticlunr.min.js"></script>
+			<script type="text/javascript" defer  src="https://www.jamespking.com/search-elasticlunr.js"></script>
+
+	<meta property="og:site_name" content="Notes" />
+	<meta property="og:title" content="Java Garbage Collection - Notes" />
+	<meta property="og:url" content="https://www.jamespking.com/java-garbage-collection/" />
+	<meta property="og:description" content="Notes on Java GC and memory management. Hints for tuning HotSpot." /><meta property="og:image" content="https://www.jamespking.com/card.png" /><meta property="og:locale" content="en_US" />
+</head>
+
+<body>
+
+		
+<header id="site-nav">
+	<nav>
+		<a href="#main-content" tabindex="0">
+			Skip to Main Content
+		</a>
+		<ul>
+			<li id="home">
+				<a href="https://www.jamespking.com">
+					<i class="icon"></i>Notes</a>
+			</li>
+			<li class="divider"></li>
+					<li>
+						<a href="https://www.jamespking.com/about">About</a>
+					</li>
+				<li id="search">
+					<button id="search-toggle" class="circle" title="Search">
+						<i class="icon"></i>
+					</button>
+				</li>
+		</ul>
+	</nav>
+		<div id="search-container">
+			<label for="search-bar" class="visually-hidden">Search</label>
+			<input id="search-bar" placeholder="Search for…" autocomplete="off" type="search" disabled>
+			<div id="search-results-container">
+				<div id="search-results"></div>
+			</div>
+		</div>
+</header>
+<main id="main-content">
+		<article><div id="heading"><p>
+				<small>
+					<time datetime=" 2025-05-11T00:00:00+00:00">Published on
+						May 11, 2025</time></small>
+			</p><h1>Java Garbage Collection</h1>
+				<ul class="tags"><li><a class="tag" href="https://www.jamespking.com/tags/notes/">notes</a></li><li><a class="tag" href="https://www.jamespking.com/tags/java/">java</a></li>
+				</ul>
+	</div>
+
+	<div id="buttons-container"><a id="go-to-top" href="#top" title="Go to Top"><i class="icon"></i></a></div><ul>
+<li>Some simple notes on JVM heap memory and garbage collector (HotSpot)</li>
+<li>Todo: Z1</li>
+</ul>
+<hr />
+<h2 id="jvm-heap-garbage-collection-basics">JVM Heap &amp; Garbage Collection Basics</h2>
+<ul>
+<li>All objects live in a memory region called the <strong>Java heap</strong></li>
+<li>A garbage collector automates memory management on the heap
+<ul>
+<li>It allocates and deallocates memory</li>
+<li><strong>Note:</strong> The term "garbage collector" might be misleading; "memory manager" could be more accurate</li>
+</ul>
+</li>
+<li>The heap size can grow during execution up to a specified maximum size</li>
+<li>The heap is organized into different regions to make GC more efficient</li>
+<li>When regions become full, a GC cycle is triggered to clear out unused objects</li>
+</ul>
+<hr />
+<h2 id="the-gc-cycle">The GC Cycle</h2>
+<ol>
+<li><strong>Mark</strong>
+<ul>
+<li>Unused objects (those without live references) are identified</li>
+<li><em>Simple approach:</em> start from root objects, follow all references, and mark every reached object as live</li>
+</ul>
+</li>
+<li><strong>Sweep/Delete</strong>
+<ul>
+<li>Marked (dead) objects are removed</li>
+<li>The allocator tracks the freed spaces for future allocations</li>
+</ul>
+</li>
+<li><strong>Compaction (optional)</strong>
+<ul>
+<li>Free spaces can become fragmented between live objects</li>
+<li>The JVM may compact memory by shifting live objects to create one contiguous free region</li>
+</ul>
+</li>
+<li><strong>Reuse or Return</strong>
+<ul>
+<li>Freed memory is either returned to the OS or reused for new objects</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="gc-pause-modes">GC Pause Modes</h2>
+<ul>
+<li><strong>Stop-the-World</strong>
+<ul>
+<li>Application threads are suspended while GC runs</li>
+<li>Simpler (no concurrent mutations)</li>
+<li>Suitable for <strong>throughput-oriented</strong> workloads (e.g., batch servers)</li>
+</ul>
+</li>
+<li><strong>Concurrent / Pause-Free</strong>
+<ul>
+<li>GC runs alongside the application</li>
+<li>More complex (must handle object mutations in real-time)</li>
+<li>Occasional short pauses may still occur</li>
+<li>Suitable for <strong>latency-sensitive</strong> applications</li>
+</ul>
+</li>
+<li><strong>HotSpot</strong> uses a mix of both approaches</li>
+</ul>
+<hr />
+<h2 id="generational-garbage-collection">Generational Garbage Collection</h2>
+<ul>
+<li>Based on the observation that objects tend to have different lifetimes:
+<ol>
+<li><strong>Young</strong> (short-lived)</li>
+<li><strong>Tenured/Old</strong> (long-lived)</li>
+</ol>
+</li>
+<li><strong>Partitioning</strong> the heap by age limits how much the GC must scan each cycle</li>
+<li><strong>Minor GC</strong>: triggers when the <strong>Young</strong> generation fills
+<ul>
+<li>Targets only Young gen → faster, since most objects are dead</li>
+</ul>
+</li>
+<li><strong>Major GC</strong> (or Full GC): triggers when the <strong>Old</strong> generation fills
+<ul>
+<li>Scans the entire heap, but runs much less often</li>
+</ul>
+</li>
+<li>Live objects surviving Young-gen GCs get <strong>promoted</strong> to the Old generation</li>
+</ul>
+<h3 id="young-generation-layout">Young Generation Layout</h3>
+<ul>
+<li><strong>Eden</strong> + <strong>Two Survivor Spaces</strong></li>
+<li>On each Minor GC:
+<ol>
+<li>Eden + one Survivor space are emptied</li>
+<li>Live objects from Eden and the other Survivor are copied into the empty Survivor</li>
+<li>Objects that survive enough cycles (or if Survivor fills) are promoted to Old</li>
+</ol>
+</li>
+</ul>
+<hr />
+<h2 id="hotspot-gc-tuning">HotSpot GC Tuning</h2>
+<p>Key goals: <strong>pause-time</strong>, <strong>throughput</strong>, and <strong>heap size</strong>. HotSpot may adjust heap and GC frequency at runtime to meet targets.</p>
+<h3 id="logging">Logging</h3>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">-Xlog:gc*    </span><span style="color:#65737e;"># Log all GC-related messages
+</span></code></pre>
+<h3 id="pause-time-goal">Pause-Time Goal</h3>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">-XX:MaxGCPauseMillis</span><span>=&lt;ms&gt;
+</span></code></pre>
+<ul>
+<li>Sets a target for the maximum pause time in milliseconds</li>
+<li>The JVM will attempt to meet this goal, but it's not guaranteed</li>
+<li><strong>Note:</strong> Setting this value too low may lead to frequent GC cycles and reduced throughput</li>
+</ul>
+<h3 id="throughput-goal">Throughput Goal</h3>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">-XX:GCTimeRatio</span><span>=</span><span style="color:#a3be8c;">nnn
+</span></code></pre>
+<ul>
+<li>Defines the desirable ratio of <strong>application time</strong> to <strong>GC time</strong></li>
+<li>JVM aims to keep GC time ≤ <code>1/(1 + nnn)</code> of total runtime</li>
+<li>For example, <code>-XX:GCTimeRatio=19</code> sets a goal of 5% GC time and 95% application time</li>
+</ul>
+<h3 id="heap-size">Heap Size</h3>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">-Xms</span><span>=&lt;size&gt;    </span><span style="color:#65737e;"># Initial (minimum) heap size  
+</span><span style="color:#bf616a;">-Xmx</span><span>=&lt;size&gt;    </span><span style="color:#65737e;"># Maximum heap size (larger heaps ⇒ fewer GCs but longer pauses)
+</span></code></pre>
+<h4 id="generation-sizes">Generation Sizes</h4>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">-XX:NewRatio</span><span>=</span><span style="color:#a3be8c;">nnn    </span><span style="color:#65737e;"># Ratio of Old to Young gen size (default: 2)
+</span></code></pre>
+<ul>
+<li><strong>Note:</strong> When using G1 GC, avoid setting the Young generation size explicitly (e.g., via <code>-Xmn</code> or <code>-XX:NewRatio</code>) as it may interfere with G1's ability to meet pause-time goals.
+<ul>
+<li>Source: <a href="https://blog.gceasy.io/simple-effective-g1-gc-tuning-tips/">Simple &amp; effective Java G1 GC tuning tips</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://www.oracle.com/technetwork/java/javase/memorymanagement-whitepaper-150215.pdf">Java Memory Management White Paper</a></li>
+<li><a href="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html">Garbage Collection Tutorial</a></li>
+<li><a href="https://docs.oracle.com/en/java/javase/21/core/memory-segments-and-arenas.html">Memory Segments and Arenas in Java</a></li>
+<li><a href="https://docs.oracle.com/en/java/javase/17/gctuning">Java Garbage Collection Tuning</a></li>
+<li><a href="https://www.oracle.com/java/technologies/javase/vmoptions-jsp.html">Java Virtual Machine Options</a></li>
+</ul>
+
+</article>
+		
+	<span id="search-index" class="hidden">https://www.jamespking.com/search_index.en.json</span>
+	<span id="more-matches-text" class="hidden">$MATCHES more matches</span>
+
+	</main>
+	<footer id="site-footer">
+</footer>
+
+
+</body>
+</html>
