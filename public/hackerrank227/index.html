@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en" >
+<head>
+	<!-- 2025-05-10 Sat 23:58 -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#9a9996" />
+	<title>HackerRank The Chase Writeup - Notes</title>
+	<link rel="canonical" href="https://www.jamespking.com/hackerrank227/" /><link rel="icon" type="image/png" href="https://www.jamespking.com/favicon.png" />
+
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://www.jamespking.com/apple-touch-icon.png" />
+<style type="text/css">
+	:root {--accent-color: #6f8396;}</style>
+
+			<link type="text/css" rel="stylesheet" href="https://www.jamespking.com/style.css" />
+			<script type="text/javascript" defer  src="https://www.jamespking.com/closable.js"></script>
+
+	<meta property="og:site_name" content="Notes" />
+	<meta property="og:title" content="HackerRank The Chase Writeup - Notes" />
+	<meta property="og:url" content="https://www.jamespking.com/hackerrank227/" />
+	<meta property="og:description" content="" /><meta property="og:image" content="https://www.jamespking.com/card.png" /><meta property="og:locale" content="en_US" />
+</head>
+
+<body>
+<main id="main-content">
+		
+<h1>HackerRank The Chase Writeup</h1><p>A long long time ago I solved <a href="https://www.hackerrank.com/contests/projecteuler/challenges/euler227">The Chase (Project Euler 227) on HackerRank</a>. It took me a long time to figure it out, so I wrote up these notes.</p>
+<span id="continue-reading"></span>
+<p><a href="https://www.hackerrank.com/profile/bayleef">Bayleef</a> amended the problem from the original and it is a bit more complicated. Namely, it requires an exact answer. And the inputs can be rather large, so we need to make sure our algorithm is efficient.</p>
+<h2 id="the-problem">The problem</h2>
+<p>An even number of players are playing The Chase. At the start, two players on opposite sides of a table are each given m-sided dice. On each turn, both players roll the dice. If it lands on 1, they pass it to the player on their left. If it lands on m, they pass it to the player on their right. The game ends when one player has both dice at the end of a turn.</p>
+<p>We need to answer: for n players and m-sided dice, how many turns will the game last?</p>
+<h2 id="modulo-109-9">Modulo 10<sup>9</sup> + 9</h2>
+<p>The numbers we could be dealing with in our solution could get quite large so the result is returned modulo 10^9 + 9. In this case, you can think of modulo as a checksum. The result is that the biggest numbers used in the solution will fit into a <code>long long</code> and most variables will fit into an <code>int</code>.</p>
+<p>You can learn more about why modulo is needed and how to approach questions involving it in <a href="https://www.hackerearth.com/practice/notes/abhinav92003/why-output-the-answer-modulo-109-7/">A. Sharma's article</a>. However, I'll outline the basics here.</p>
+<p>The first important thing to note is that the question requires an <strong>exact answer</strong>. If you have a solution to the original Project Euler problem, you probably took an approach which gave an approximate answer (to the precision specified in the original problem). That's not going to work here. To start figuring out an approach, you might want to look at <a href="http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/amsbook.mac.pdf">Markov chains</a>.</p>
+<p>The modulo operation has the following distributive properties:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>(a + b) % c == ((a % c) + (b % c)) % c
+</span><span>(a - b) % c == ((a % c) - (b % c)) % c
+</span><span>(a * b) % c == ((a % c) * (b % c)) % c
+</span></code></pre>
+<p>However, modulo is <em>not</em> distributive over division:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>(a / b) % c != ((a % c) / (b % c)) % c
+</span></code></pre>
+<p>To approach division under modulo, we instead multiply by the inverse of the divisor:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>a / b == a * b^-1
+</span></code></pre>
+<p>We call b<sup>-1</sup> the multiplicative inverse, and there are <a href="https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/">several algorithms available</a> to help us calculate it (I'll leave you to decide which to use). Rather than use division we can now multiply by the multiplicative inverse.</p>
+<h2 id="optimisations">Optimisations</h2>
+<p>To enable your code to successfully process larger inputs within the available time and memory limits you'll need to optimise.</p>
+<p>My first piece of advice is to write your solution in a fast language. I originally wrote mine in Python 3 but it timed out for test case #36 and onward. I rewrote the algorithm in C++ and successfully completed all the test cases.</p>
+<p>However, this might say more about the inefficiency of my algorithm (rather than Python). <a href="https://www.hackerrank.com/oleg_b?hr_r=1">oleg_b</a> commented in the <a href="https://www.hackerrank.com/contests/projecteuler/challenges/euler227/forum">discussion</a> that there is a Python2 solution that has a worst runtime of 2.6 secs.</p>
+<p>The next is to write out the matrix you are trying to solve (using a placeholder for the values). By doing this you should be able to notice a number of optimisations in terms of memory usage and the number times your code loops.</p>
+<h2 id="further-reading">Further reading</h2>
+<p>I hope that this gives you some extra insight into how to solve the problem without taking away all the fun. If you'd like to learn more about the techniques I used then I suggest reviewing the following:</p>
+<ol>
+<li><a href="http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/amsbook.mac.pdf">Introduction to Probability by C. Grinstead and J. Snell - Chapter 11 Markov Chains</a></li>
+<li><a href="https://www.hackerearth.com/practice/notes/abhinav92003/why-output-the-answer-modulo-109-7/">Why “OUTPUT THE ANSWER MODULO 10^9 + 7"? by A. Sharma</a></li>
+<li>Linear Algebra and Its Applications by G. Strang (4th ed) - 1.6 Inverses and Transposes</li>
+<li><a href="https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/">Modular multiplicative inverse on GeeksforGeeks</a></li>
+</ol>
+
+
+		
+	<span id="search-index" class="hidden">https://www.jamespking.com/search_index.en.json</span>
+	<span id="more-matches-text" class="hidden">$MATCHES more matches</span>
+
+	</main>
+	<footer id="site-footer">
+</footer>
+
+
+</body>
+</html>

@@ -1,24 +1,17 @@
 +++
 title = "About"
-description = "JPK's thoughts"
-date = 2022-09-04
+description = ""
+date = 2025-05-10
 draft = false
 extra = {"latex" = false}
 +++
 
-I'm working on a PhD in computer science at the University of Southampton and I love solving problems with software!<!-- more -->
-My research focuses on zero-shot collaboration of independently trained agents. The initial testbed is the collaborative card game Hanabi[^1], but the goal is to produce results which are widely applicable.
+Backend software engineer working on Execute, a FICC trading application at JPMorganChase markets. Prior to that I:
+* spent some time researching multi-agent collaboration in constrained communication games
+* built a microservice tester for JPMorganChase payments
+* studied some foundational CS: basic coding (Java, C, Python, Haskell), AI (classical, vison, NLP, deep learning), distributed systems
+* marketed startups and small businesses
+* studied some foundational maths: calculus, linear algerba, probability and statistics, differential equations
 
-###### Things I've done
 
-* First Class BSc Computer Science, University of Southampton
-* Software development internship at JPMorgan Chase & Co, working on payments
-* Research internship at University of Southampton in collaboration with Toyota, where I developed a novel algorithm for ridesharing allocation 
-* Marketing consulting for small businesses and startups (tech)
-
-###### Contact
-If you want to chat anything else that's interesting, please email me: [james+blog@jamespking.com](mailto:james+blog@jamespking.com).
-
----
-[^1]: [The Hanabi challenge: A new frontier for AI research](https://doi.org/10.1016/j.artint.2019.103216)
-
+Contact: [james+blog@jamespking.com](mailto:james+blog@jamespking.com).

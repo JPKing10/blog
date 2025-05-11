@@ -1,3 +1,7 @@
 +++
-paginate_by = 20
+title = "Notes"
+sort_by = "date"
+template = "article_list.html"
+page_template = "article.html"
+transparent = true
 +++

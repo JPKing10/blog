@@ -1,12 +1,13 @@
 +++
 title = "HackerRank The Chase Writeup"
+description = "Notes on what I learned solving The Chase. "
 date = 2019-03-20T00:00:00Z
-tags = ["HackerRank", "ProjectEuler+", "Probability"]
 aliases = ["/posts/hackerrank-projecteuler-227-writeup/", "/posts/hackerrank-projecteuler+-227-writeup/"]
+[taxonomies]
+tags = ["HackerRank", "ProjectEuler+", "Probability"]
+[extra]
+archive = "A long long time ago, before I could code, I solved [The Chase (Project Euler 227) on HackerRank](https://www.hackerrank.com/contests/projecteuler/challenges/euler227). At the time it was quite the achievement... so I wrote up these notes."
 +++
-A long long time ago I solved [The Chase (Project Euler 227) on HackerRank](https://www.hackerrank.com/contests/projecteuler/challenges/euler227). It took me a long time to figure it out, so I wrote up these notes. 
-
-<!-- more -->
 
 [Bayleef](https://www.hackerrank.com/profile/bayleef) amended the problem from the original and it is a bit more complicated. Namely, it requires an exact answer. And the inputs can be rather large, so we need to make sure our algorithm is efficient.
 
@@ -44,9 +45,9 @@ We call b<sup>-1</sup> the multiplicative inverse, and there are [several algori
 
 To enable your code to successfully process larger inputs within the available time and memory limits you'll need to optimise.
 
-My first piece of advice is to write your solution in a fast language. I originally wrote mine in Python 3 but it timed out for test case #36 and onward. I rewrote the algorithm in C++ and successfully completed all the test cases.
+My first piece of advice is to write your solution in a fast language. I originally wrote mine in Python 3 but it timed out for test case #36 and onward. I rewrote the same algorithm in C++ and successfully completed all the test cases.
 
-However, this might say more about the inefficiency of my algorithm (rather than Python). [oleg_b](https://www.hackerrank.com/oleg_b?hr_r=1) commented in the [discussion](https://www.hackerrank.com/contests/projecteuler/challenges/euler227/forum) that there is a Python2 solution that has a worst runtime of 2.6 secs. 
+However, there are Python solutions that can pass in the time limits, I just didn't know how to write them. [oleg_b](https://www.hackerrank.com/oleg_b?hr_r=1) commented in the [discussion](https://www.hackerrank.com/contests/projecteuler/challenges/euler227/forum) that there is a Python 2 solution that has a worst runtime of 2.6 secs. 
 
 The next is to write out the matrix you are trying to solve (using a placeholder for the values). By doing this you should be able to notice a number of optimisations in terms of memory usage and the number times your code loops.
 
