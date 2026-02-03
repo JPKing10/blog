@@ -6,7 +6,7 @@ draft = false
 extra = {"latex" = false}
 +++
 
-Quant trader in Quantitative Trading and Research at JPMorganChase. Prior to that I:
+Quantitative Trader in Quantitative Trading and Research at JPMorganChase, focused on systematic execution. Prior to that I:
 * developed backend software for Execute, JPMorganChase's leading single dealer FICC trading platform
 * spent some time researching multi-agent collaboration in constrained communication games
 * built a microservice tester for JPMorganChase payments
