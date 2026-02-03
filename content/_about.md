@@ -6,7 +6,8 @@ draft = false
 extra = {"latex" = false}
 +++
 
-Backend software engineer working on Execute, a FICC trading platform at JPMorganChase markets. Prior to that I:
+Quantitative Trader in Quantitative Trading and Research at JPMorganChase, focused on systematic execution. Prior to that I:
+* developed backend software for Execute, JPMorganChase's leading single dealer FICC trading platform
 * spent some time researching multi-agent collaboration in constrained communication games
 * built a microservice tester for JPMorganChase payments
 * improved the scalability of a proposed ridesharing mechanism
