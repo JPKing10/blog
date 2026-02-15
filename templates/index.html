@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="post-list">
+    {% set section = get_section(path="_index.md") %}
+    {% for page in section.pages %}
+    {% if not page.draft and not page.extra.hidden %}
+    <article class="post-item">
+        <a href="{{ page.permalink }}">
+            <h2 class="post-title">{{ page.title }}</h2>
+        </a>
+        <div class="post-meta">
+            <time datetime="{{ page.date }}">{{ page.date | date(format="%Y-%m-%d") }}</time>
+            {% if page.taxonomies.tags %}
+            <span class="post-tags">
+                {% for tag in page.taxonomies.tags %}
+                <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}" class="tag">{{ tag }}</a>
+                {% endfor %}
+            </span>
+            {% endif %}
+        </div>
+        {% if page.description %}
+        <p class="post-summary">{{ page.description }}</p>
+        {% endif %}
+    </article>
+    {% endif %}
+    {% endfor %}
+</section>
+{% endblock content %}

@@ -3,7 +3,7 @@ title = "About"
 description = ""
 date = 2025-05-10
 draft = false
-extra = {"latex" = false}
+extra = {"latex" = false, "hidden" = true}
 +++
 
 Quantitative Trader in Quantitative Trading and Research at JPMorganChase, focused on systematic execution. Prior to that I:
