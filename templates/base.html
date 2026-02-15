@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ config.title }}{% endblock title %}</title>
     <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
-    <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+    <link rel="stylesheet" href="/style.css">
     <script>
         (function() {
             var theme = localStorage.getItem('theme');
@@ -19,9 +19,9 @@
 <body>
     <header class="site-header">
         <div class="header-inner">
-            <a href="{{ config.base_url }}" class="site-title">{{ config.title }}</a>
+            <a href="/" class="site-title">{{ config.title }}</a>
             <nav class="site-nav">
-                <a href="{{ get_url(path='@/_about.md') }}">About</a>
+                <a href="/about">About</a>
                 <a href="/tags">Tags</a>
                 <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
                     <span class="theme-icon-light">&#9789;</span>
