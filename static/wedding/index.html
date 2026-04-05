@@ -86,15 +86,34 @@
       -webkit-mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
       mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
     }
-    .bottom-left {
-      bottom: 0; left: 0; width: 130px;
-      -webkit-mask-image: radial-gradient(ellipse at bottom left, black 35%, transparent 72%);
-      mask-image: radial-gradient(ellipse at bottom left, black 35%, transparent 72%);
-    }
     .bottom-right {
-      bottom: 0; right: 0; width: 130px;
+      bottom: 0; right: 0; width: 140px;
       -webkit-mask-image: radial-gradient(ellipse at bottom right, black 35%, transparent 72%);
       mask-image: radial-gradient(ellipse at bottom right, black 35%, transparent 72%);
+    }
+
+    /* ── Peacock scene element ── */
+    .peacock-full {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 230px;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: multiply;
+      filter: saturate(0.88);
+      -webkit-mask-image: linear-gradient(
+        to top right,
+        black 28%,
+        rgba(0, 0, 0, 0.75) 52%,
+        transparent 80%
+      );
+      mask-image: linear-gradient(
+        to top right,
+        black 28%,
+        rgba(0, 0, 0, 0.75) 52%,
+        transparent 80%
+      );
     }
 
     /* ── Content layer ── */
@@ -151,9 +170,11 @@
     /* ── Divider ── */
     .divider-img {
       display: block;
-      margin: 24px auto;
-      width: 170px;
-      opacity: 0.6;
+      width: 160px;
+      height: 32px;
+      margin: 20px auto;
+      background: url('assets/ui/divider.png') center / contain no-repeat;
+      opacity: 0.55;
       filter: saturate(0.7);
       mix-blend-mode: multiply;
     }
@@ -245,15 +266,6 @@
       background: rgba(192, 168, 136, 0.12);
     }
 
-    /* ── Peacock accent ── */
-    .peacock {
-      display: block;
-      width: 56px;
-      margin: 24px auto 0;
-      opacity: 0.8;
-      filter: saturate(0.8);
-      mix-blend-mode: multiply;
-    }
   </style>
 </head>
 <body>
@@ -262,8 +274,8 @@
 
     <img class="floral top-left"     src="assets/florals/top-left.png"     alt="">
     <img class="floral top-right"    src="assets/florals/top-right.png"    alt="">
-    <img class="floral bottom-left"  src="assets/florals/bottom-left.png"  alt="">
     <img class="floral bottom-right" src="assets/florals/bottom-right.png" alt="">
+    <img class="peacock-full"        src="assets/ui/peacock-full.png"      alt="">
 
     <div class="content">
 
@@ -277,11 +289,11 @@
         <span class="name">James Phillips King</span>
       </div>
 
-      <img class="divider-img" src="assets/ui/divider.png" alt="">
+      <div class="divider-img"></div>
 
       <p class="date">Saturday, 16 May 2026</p>
 
-      <img class="divider-img" src="assets/ui/divider.png" alt="">
+      <div class="divider-img"></div>
 
       <div class="venue-block">
         <h2>Wedding Ceremony</h2>
@@ -289,7 +301,7 @@
         <p class="venue-time">12:00 pm</p>
       </div>
 
-      <img class="divider-img" src="assets/ui/divider.png" alt="">
+      <div class="divider-img"></div>
 
       <div class="venue-block">
         <h2>Reception</h2>
@@ -306,8 +318,6 @@
       </div>
 
       <a class="rsvp-btn" href="rsvp/">RSVP</a>
-
-      <img class="peacock" src="assets/ui/peacock.png" alt="">
 
     </div>
   </div>
