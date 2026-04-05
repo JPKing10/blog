@@ -19,6 +19,7 @@
     }
 
     body {
+      background-color: #f5f0e8;
       background-image: url('assets/textures/paper.jpg');
       background-repeat: repeat;
       background-size: auto;
@@ -131,20 +132,13 @@
     }
 
     /* ── Divider ── */
-    .divider {
-      display: block;
-      width: 100px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #c8b8a4, transparent);
-      margin: 28px auto;
-    }
-
     .divider-img {
       display: block;
-      margin: 20px auto;
-      width: 130px;
-      opacity: 0.55;
-      filter: saturate(0.7);
+      margin: 24px auto;
+      width: 180px;
+      opacity: 0.7;
+      filter: saturate(0.75);
+      mix-blend-mode: multiply;
     }
 
     /* ── Date ── */
@@ -265,11 +259,11 @@
         <span class="name">James Phillips King</span>
       </div>
 
-      <span class="divider"></span>
+      <img class="divider-img" src="assets/ui/divider.png" alt="">
 
       <p class="date">Saturday, 16 May 2026</p>
 
-      <span class="divider"></span>
+      <img class="divider-img" src="assets/ui/divider.png" alt="">
 
       <div class="venue-block">
         <h2>Wedding Ceremony</h2>
@@ -277,7 +271,7 @@
         <p class="venue-time">12:00 pm</p>
       </div>
 
-      <span class="divider"></span>
+      <img class="divider-img" src="assets/ui/divider.png" alt="">
 
       <div class="venue-block">
         <h2>Reception</h2>
