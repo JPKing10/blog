@@ -49,19 +49,19 @@
     .bg-art {
       position: absolute;
       inset: 0;
-      background: url('assets/images/bg-villa-soft.png') center / cover no-repeat;
-      opacity: 0.22;
-      filter: blur(2px);
+      background: url('assets/images/bg-villa-soft.png') center 25% / cover no-repeat;
+      opacity: 0.38;
+      filter: blur(1px);
       mix-blend-mode: multiply;
       -webkit-mask-image: radial-gradient(
-        ellipse at center,
+        ellipse 92% 88% at 50% 58%,
         rgba(0, 0, 0, 1) 55%,
-        rgba(0, 0, 0, 0) 85%
+        rgba(0, 0, 0, 0) 88%
       );
       mask-image: radial-gradient(
-        ellipse at center,
+        ellipse 92% 88% at 50% 58%,
         rgba(0, 0, 0, 1) 55%,
-        rgba(0, 0, 0, 0) 85%
+        rgba(0, 0, 0, 0) 88%
       );
       z-index: 0;
     }
@@ -152,9 +152,9 @@
     .divider-img {
       display: block;
       margin: 24px auto;
-      width: 180px;
-      opacity: 0.7;
-      filter: saturate(0.75);
+      width: 170px;
+      opacity: 0.6;
+      filter: saturate(0.7);
       mix-blend-mode: multiply;
     }
 
@@ -248,10 +248,11 @@
     /* ── Peacock accent ── */
     .peacock {
       display: block;
-      width: 52px;
+      width: 56px;
       margin: 24px auto 0;
-      opacity: 0.65;
-      filter: saturate(0.75);
+      opacity: 0.8;
+      filter: saturate(0.8);
+      mix-blend-mode: multiply;
     }
   </style>
 </head>
