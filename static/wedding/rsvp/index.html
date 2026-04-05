@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP — Yadana &amp; James, 16 May 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      background-image: url('../assets/textures/paper.jpg');
+      background-repeat: repeat;
+      background-size: auto;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: #3a3028;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 16px 64px;
+      min-height: 100vh;
+    }
+
+    /* ── Card ── */
+    .card {
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 28px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Background art layer ── */
+    .bg-art {
+      position: absolute;
+      inset: 0;
+      background: url('../assets/images/bg-old-harry.png') center / cover no-repeat;
+      opacity: 0.12;
+      filter: blur(2px);
+      mix-blend-mode: multiply;
+      -webkit-mask-image: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 1) 55%,
+        rgba(0, 0, 0, 0) 85%
+      );
+      mask-image: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 1) 55%,
+        rgba(0, 0, 0, 0) 85%
+      );
+      z-index: 0;
+    }
+
+    /* ── Florals ── */
+    .floral {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.9;
+      filter: saturate(0.9);
+    }
+
+    .top-left  { top: 0; left: 0;   width: 160px; }
+    .top-right { top: 0; right: 0;  width: 140px; }
+    .bottom-left  { bottom: 0; left: 0;  width: 130px; }
+    .bottom-right { bottom: 0; right: 0; width: 130px; }
+
+    /* ── Content layer ── */
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    /* ── Typography ── */
+    .eyebrow {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(1.7rem, 7vw, 2.5rem);
+      line-height: 1.2;
+      letter-spacing: 0.5px;
+      color: #2e2820;
+      margin-bottom: 6px;
+    }
+
+    .sub-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #8a7a6a;
+      margin-bottom: 4px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: block;
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #c8b8a4, transparent);
+      margin: 24px auto;
+    }
+
+    /* ── Form ── */
+    form {
+      text-align: left;
+    }
+
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #c8b8a4;
+      padding: 6px 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: #3a3028;
+      outline: none;
+      border-radius: 0;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+      width: 80px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 64px;
+      line-height: 1.55;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #c0b0a0;
+      font-style: italic;
+    }
+
+    /* ── Attendance radio group ── */
+    .attendance-label {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      display: block;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: #3a3028;
+    }
+
+    .radio-option input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border: 1px solid #c0a888;
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .radio-option input[type="radio"]:checked {
+      border-color: #8a7a6a;
+    }
+
+    .radio-option input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background: #8a7a6a;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ── Number row ── */
+    .number-row {
+      display: flex;
+      gap: 32px;
+    }
+
+    .number-row .form-group {
+      flex: 1;
+    }
+
+    /* ── Attendance-only fields ── */
+    .attending-fields {
+      transition: opacity 0.25s;
+    }
+
+    .attending-fields[hidden] {
+      display: none;
+    }
+
+    /* ── Submit button ── */
+    .submit-btn {
+      display: block;
+      width: 100%;
+      max-width: 240px;
+      margin: 36px auto 0;
+      padding: 11px 0;
+      background: transparent;
+      border: 1px solid #c0a888;
+      border-radius: 2px;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      color: #3a3028;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+
+    .submit-btn:hover {
+      background: rgba(192, 168, 136, 0.12);
+    }
+
+    /* ── Success message ── */
+    .success-msg {
+      text-align: center;
+      padding: 20px 0 8px;
+    }
+
+    .success-msg p {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1rem, 4vw, 1.15rem);
+      color: #5a4e42;
+      line-height: 1.6;
+    }
+
+    .success-msg .success-mark {
+      font-size: 1.4rem;
+      color: #b0a090;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 28px;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      color: #8a7a6a;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: #5a4e42;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="bg-art"></div>
+
+    <img class="floral top-left"     src="../assets/florals/top-left.png"     alt="">
+    <img class="floral top-right"    src="../assets/florals/top-right.png"    alt="">
+    <img class="floral bottom-left"  src="../assets/florals/bottom-left.png"  alt="">
+    <img class="floral bottom-right" src="../assets/florals/bottom-right.png" alt="">
+
+    <div class="content">
+
+      <p class="eyebrow">Yadana &amp; James · 16 May 2026</p>
+      <h1>Kindly Reply</h1>
+      <p class="sub-heading">We hope to celebrate with you</p>
+
+      <span class="divider"></span>
+
+      <form
+        id="rsvp-form"
+        name="wedding-rsvp"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="wedding-rsvp">
+        <p style="display:none;">
+          <label>Do not fill this: <input name="bot-field"></label>
+        </p>
+
+        <!-- Attendance -->
+        <span class="attendance-label">Will you be joining us?</span>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="accept" required>
+            Joyfully accepts
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="decline">
+            Regretfully declines
+          </label>
+        </div>
+
+        <!-- Always-visible fields -->
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full_name" required placeholder="Your full name">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="your@email.com">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone <span style="font-style:italic;font-family:'Cormorant Garamond',serif;text-transform:none;letter-spacing:0;font-size:0.95em;color:#b0a090;">(optional)</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="+44 …">
+        </div>
+
+        <!-- Attending-only fields -->
+        <fieldset class="attending-fields" id="attending-fields" hidden>
+
+          <div class="number-row">
+            <div class="form-group">
+              <label for="adults">Adults Attending</label>
+              <input type="number" id="adults" name="adults" min="1" value="1">
+            </div>
+            <div class="form-group">
+              <label for="children">Children</label>
+              <input type="number" id="children" name="children" min="0" value="0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="guest-names">Guest Names</label>
+            <textarea id="guest-names" name="guest_names" placeholder="Please list the full names of all guests in your party"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="dietary">Dietary Requirements</label>
+            <textarea id="dietary" name="dietary" placeholder="Any allergies or dietary needs we should know about"></textarea>
+          </div>
+
+        </fieldset>
+
+        <!-- Notes always visible -->
+        <div class="form-group">
+          <label for="notes">Additional Notes</label>
+          <textarea id="notes" name="notes" placeholder="Anything else you'd like us to know"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Reply</button>
+      </form>
+
+      <div class="success-msg" id="success-msg" hidden>
+        <span class="success-mark">✦</span>
+        <p id="success-text">Thank you — we look forward to celebrating with you.</p>
+      </div>
+
+      <a class="back-link" href="../">← Return to Invitation</a>
+
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('rsvp-form');
+    const successMsg = document.getElementById('success-msg');
+    const successText = document.getElementById('success-text');
+    const attendingFields = document.getElementById('attending-fields');
+    const radios = form.querySelectorAll('input[name="attendance"]');
+
+    // Show / hide attending fields based on selection
+    radios.forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        if (this.value === 'accept') {
+          attendingFields.hidden = false;
+          attendingFields.querySelector('#adults').required = true;
+        } else {
+          attendingFields.hidden = true;
+          attendingFields.querySelector('#adults').required = false;
+        }
+      });
+    });
+
+    // Intercept submit → Netlify fetch → inline success
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var data = new FormData(form);
+      var attending = data.get('attendance') === 'accept';
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString()
+      })
+      .then(function() {
+        form.hidden = true;
+        successMsg.hidden = false;
+        if (!attending) {
+          successText.textContent =
+            'Thank you for letting us know — you will be missed.';
+        }
+      })
+      .catch(function() {
+        // Fallback: still show success to avoid confusion
+        form.hidden = true;
+        successMsg.hidden = false;
+      });
+    });
+  </script>
+</body>
+</html>
