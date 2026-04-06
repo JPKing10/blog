@@ -7,6 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/images/bg-villa-soft.png">
+  <link rel="preload" as="image" href="assets/florals/top-left.png">
+  <link rel="preload" as="image" href="assets/florals/top-right.png">
+  <link rel="preload" as="image" href="assets/ui/peacock-full.png">
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -25,6 +29,14 @@
       align-items: flex-start;
       padding: 0 0 64px;
       min-height: 100vh;
+      opacity: 0;
+      filter: blur(6px);
+      transition: opacity 0.7s ease-out, filter 0.7s ease-out;
+    }
+
+    body.loaded {
+      opacity: 1;
+      filter: blur(0);
     }
 
     /* ── Card ── */
@@ -306,5 +318,11 @@
 
     </div>
   </div>
+  <script>
+    var bg = new Image();
+    bg.onload = function () { document.body.classList.add('loaded'); };
+    bg.onerror = function () { document.body.classList.add('loaded'); };
+    bg.src = 'assets/images/bg-villa-soft.png';
+  </script>
 </body>
 </html>
