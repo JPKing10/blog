@@ -136,15 +136,13 @@
       z-index: 2;
       text-align: center;
       padding: 24px 20px;
-      /* Feathered backdrop — no hard edges, artwork visible at periphery */
+      /* Narrow feathered overlay — text centre only, artwork untouched */
       background: radial-gradient(
-        ellipse 92% 88% at 50% 46%,
-        rgba(255, 255, 255, 0.60) 30%,
-        rgba(255, 255, 255, 0.20) 62%,
-        transparent 80%
+        ellipse 68% 78% at 50% 44%,
+        rgba(255, 255, 255, 0.52) 28%,
+        rgba(255, 255, 255, 0.10) 55%,
+        transparent 68%
       );
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
     }
 
     /* ── Eyebrow ── */
