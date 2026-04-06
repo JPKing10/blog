@@ -130,18 +130,21 @@
       );
     }
 
-    /* ── Content + readability overlay (points 3 & 8) ── */
+    /* ── Content + readability overlay ── */
     .content {
       position: relative;
       z-index: 2;
       text-align: center;
       padding: 24px 20px;
-      /* Feathered white panel — no hard box edges */
+      /* Feathered backdrop — no hard edges, artwork visible at periphery */
       background: radial-gradient(
-        ellipse 95% 92% at 50% 46%,
-        rgba(255, 255, 255, 0.45) 38%,
-        transparent 72%
+        ellipse 92% 88% at 50% 46%,
+        rgba(255, 255, 255, 0.60) 30%,
+        rgba(255, 255, 255, 0.20) 62%,
+        transparent 80%
       );
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     /* ── Eyebrow ── */
@@ -158,9 +161,9 @@
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+      font-size: clamp(0.78rem, 3vw, 0.9rem);
       letter-spacing: 0.04em;
-      color: #7a6a5a;
+      color: #9a8c80;
       margin-bottom: 24px;
     }
 
@@ -196,8 +199,8 @@
       font-size: clamp(0.8rem, 3vw, 0.92rem);
       letter-spacing: 0.2em;
       color: #5a4e42;
-      margin-top: 28px;
-      margin-bottom: 28px;
+      margin-top: 22px;
+      margin-bottom: 22px;
     }
 
     /* ── Section headers ── */
@@ -207,7 +210,7 @@
       font-size: 0.68rem;
       letter-spacing: 0.1em;
       color: #6a5c4e;
-      margin-top: 16px;
+      margin-top: 14px;
       margin-bottom: 8px;
     }
 
@@ -232,18 +235,18 @@
     }
 
     /* ── Venue section gap ── */
-    .venue-gap { margin-top: 20px; }
+    .venue-gap { margin-top: 16px; }
 
-    /* ── RSVP button (point 6) ── */
+    /* ── RSVP button ── */
     .rsvp-btn {
       display: inline-block;
       margin-top: 36px;
-      padding: 10px 28px;
+      padding: 8px 24px;
       font-family: 'Cormorant SC', Georgia, serif;
       font-size: 0.72rem;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       color: #3a3028;
-      border: 1px solid rgba(120, 100, 80, 0.6);
+      border: 1px solid rgba(120, 100, 80, 0.4);
       background: transparent;
       text-decoration: none;
       border-radius: 2px;
@@ -251,7 +254,7 @@
     }
 
     .rsvp-btn:hover {
-      background: rgba(200, 180, 150, 0.15);
+      background: rgba(200, 180, 150, 0.12);
     }
   </style>
 </head>
@@ -287,7 +290,7 @@
 
       <div class="venue-block venue-gap">
         <h2>Reception</h2>
-        <p class="venue-name">The Italian Villa<br>at Compton Acres, Poole</p>
+        <p class="venue-name">The Italian Villa<br>Compton Acres</p>
       </div>
 
       <a class="rsvp-btn" href="rsvp/">RSVP</a>
