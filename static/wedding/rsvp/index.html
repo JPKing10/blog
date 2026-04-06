@@ -195,13 +195,29 @@
 
     .attendance-label {
       font-family: 'Cormorant SC', Georgia, serif;
-      font-size: 0.68rem;
+      font-size: 0.78rem;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #8a7a6a;
+      color: #4e4238;
       display: block;
       text-align: center;
-      margin-bottom: 14px;
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
+
+    .form-divider {
+      height: 1px;
+      background: rgba(192, 168, 136, 0.25);
+      margin: 26px 0;
+    }
+
+    .form-hint {
+      text-align: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #8a7a6a;
+      margin-bottom: 4px;
     }
 
     .radio-group {
@@ -285,7 +301,7 @@
 
     .ghost-btn {
       background: transparent;
-      border: 1px solid rgba(120, 100, 80, 0.4);
+      border: 1px solid rgba(120, 100, 80, 0.55);
       color: #3a3028;
       font-family: 'Cormorant SC', Georgia, serif;
       font-size: 0.68rem;
@@ -293,11 +309,12 @@
       text-transform: uppercase;
       padding: 8px 12px;
       cursor: pointer;
-      transition: background 0.25s ease, opacity 0.25s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
       margin-bottom: 12px;
     }
 
-    .ghost-btn:hover { background: rgba(192, 168, 136, 0.12); }
+    .ghost-btn:hover { background: rgba(192, 168, 136, 0.14); border-color: rgba(120, 100, 80, 0.75); }
+    .ghost-btn:focus-visible { outline: 1px solid rgba(120, 100, 80, 0.5); outline-offset: 2px; }
 
     .ghost-btn:disabled {
       opacity: 0.45;
@@ -421,7 +438,7 @@
       <p class="eyebrow">Yadana &amp; James · 16 May 2026</p>
       <h1>Kindly Reply</h1>
       <p class="sub-heading">We hope to celebrate with you</p>
-      <p class="sub-heading" style="margin-top:10px; font-size:0.85rem;">Please complete this form for yourself first, then add any additional guests.</p>
+      <p class="sub-heading" style="margin-top:10px; font-size:0.85rem;">Please complete your details first, then add any additional guests.</p>
 
       <div class="section-gap"></div>
 
@@ -449,6 +466,12 @@
           </label>
         </div>
 
+        <p class="form-hint" id="accept-hint" hidden>Please complete your details below</p>
+
+        <div class="form-divider"></div>
+
+        <span class="section-title">Your Details</span>
+
         <div class="form-group">
           <label for="lead-name">Your Name</label>
           <input type="text" id="lead-name" name="lead_name" required placeholder="Full name" autocomplete="name">
@@ -473,9 +496,9 @@
               </div>
             </div>
 
-            <div class="form-group" style="margin-top:8px;">
-              <span class="section-title">Add other guests in your party</span>
-            </div>
+            <div class="form-divider"></div>
+
+            <span class="section-title">Additional Guests</span>
 
             <div class="form-group">
               <span class="section-title">Additional Adult Guest</span>
@@ -573,6 +596,7 @@
     const childrenList = document.getElementById('children-list');
     const addAdultBtn = document.getElementById('add-adult');
     const addChildBtn = document.getElementById('add-child');
+    const acceptHint = document.getElementById('accept-hint');
 
     const ADULT_LIMIT = 1;
     const CHILD_LIMIT = 2;
@@ -713,6 +737,8 @@
     }
 
     function setAttendanceMode(mode) {
+      acceptHint.hidden = mode !== 'accept';
+
       if (mode === 'accept') {
         setSectionState(acceptFlow, true);
         setSectionState(declineFlow, false);
