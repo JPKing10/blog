@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yadana &amp; James — 16 May 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/images/bg-villa-soft.png">
+  <link rel="preload" as="image" href="assets/florals/top-left.png">
+  <link rel="preload" as="image" href="assets/florals/top-right.png">
+  <link rel="preload" as="image" href="assets/ui/peacock-full.png">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { min-height: 100%; }
+
+    body {
+      background-color: #f8f6f2;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: #3a3028;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 0 64px;
+      min-height: 100vh;
+      opacity: 0;
+      filter: blur(6px);
+      transition: opacity 0.7s ease-out, filter 0.7s ease-out;
+    }
+
+    body.loaded {
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    /* ── Card ── */
+    .card {
+      max-width: 520px;
+      width: 100%;
+      align-self: flex-start;
+      padding: 48px 0 180px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border-radius: 0 0 12px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Background art layer ── */
+    .bg-art {
+      position: absolute;
+      inset: 0;
+      background: url('assets/images/bg-villa-soft.png') center 25% / cover no-repeat;
+      opacity: 0.48;
+      filter: blur(1px);
+      mix-blend-mode: multiply;
+      -webkit-mask-image: radial-gradient(
+        ellipse 92% 88% at 50% 58%,
+        rgba(0, 0, 0, 1) 55%,
+        rgba(0, 0, 0, 0) 88%
+      );
+      mask-image: radial-gradient(
+        ellipse 92% 88% at 50% 58%,
+        rgba(0, 0, 0, 1) 55%,
+        rgba(0, 0, 0, 0) 88%
+      );
+      z-index: 0;
+    }
+
+    /* ── Vertical fade overlay (point 4) ── */
+    .bg-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.45)  0%,
+        rgba(255, 255, 255, 0.18) 40%,
+        rgba(255, 255, 255, 0.18) 60%,
+        rgba(255, 255, 255, 0.45) 100%
+      );
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Florals ── */
+    .floral {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      filter: saturate(0.9);
+      mix-blend-mode: multiply;
+    }
+
+    .top-left {
+      top: 0; left: 0; width: 160px;
+      opacity: 0.78; /* reduced ~15% per point 7 */
+      -webkit-mask-image: radial-gradient(ellipse at top left, black 35%, transparent 72%);
+      mask-image: radial-gradient(ellipse at top left, black 35%, transparent 72%);
+    }
+    .top-right {
+      top: 0; right: 0; width: 140px;
+      opacity: 0.92;
+      -webkit-mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
+      mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
+    }
+    .bottom-right {
+      bottom: 0; right: 0; width: 140px;
+      opacity: 0.92;
+      transform: rotate(90deg);
+      -webkit-mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
+      mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
+    }
+
+    /* ── Peacock scene element ── */
+    .peacock-full {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 175px;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: multiply;
+      filter: saturate(0.88);
+      -webkit-mask-image: linear-gradient(
+        to top right,
+        black 30%,
+        rgba(0, 0, 0, 0.6) 55%,
+        transparent 78%
+      );
+      mask-image: linear-gradient(
+        to top right,
+        black 30%,
+        rgba(0, 0, 0, 0.6) 55%,
+        transparent 78%
+      );
+    }
+
+    /* ── Content + readability overlay ── */
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 24px 20px;
+      /* Narrow feathered overlay — text centre only, artwork untouched */
+      background: radial-gradient(
+        ellipse 68% 78% at 50% 44%,
+        rgba(255, 255, 255, 0.52) 28%,
+        rgba(255, 255, 255, 0.10) 55%,
+        transparent 68%
+      );
+    }
+
+    /* ── Eyebrow ── */
+    .eyebrow {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.32em;
+      color: #8a7a6a;
+      margin-bottom: 16px;
+    }
+
+    /* ── "Request the pleasure" subtitle ── */
+    .request {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 3vw, 0.9rem);
+      letter-spacing: 0.04em;
+      color: #9a8c80;
+      margin-bottom: 24px;
+    }
+
+    /* ── Names — largest, strongest contrast ── */
+    .names {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(1.85rem, 8.5vw, 2.6rem);
+      color: #1e1a14;
+      line-height: 1.4;
+      letter-spacing: 0.01em;
+    }
+
+    .and-word {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+      color: #8a7a6a;
+      margin: 6px 0;
+      display: block;
+    }
+
+    /* ── Date ── */
+    .date {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: clamp(0.8rem, 3vw, 0.92rem);
+      letter-spacing: 0.2em;
+      color: #5a4e42;
+      margin-top: 22px;
+      margin-bottom: 22px;
+    }
+
+    /* ── Section headers ── */
+    h2 {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-weight: 400;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: #6a5c4e;
+      margin-top: 14px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Venue blocks ── */
+    .venue-block {
+      margin-bottom: 4px;
+    }
+
+    .venue-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(1rem, 4vw, 1.15rem);
+      color: #2e2820;
+      line-height: 1.55;
+    }
+
+    .venue-time {
+      font-size: 0.9rem;
+      color: #7a6a5a;
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Venue section gap ── */
+    .venue-gap { margin-top: 16px; }
+
+    /* ── RSVP button ── */
+    .rsvp-btn {
+      display: inline-block;
+      margin-top: 36px;
+      padding: 8px 24px;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      color: #3a3028;
+      border: 1px solid rgba(120, 100, 80, 0.4);
+      background: transparent;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s;
+    }
+
+    .rsvp-btn:hover {
+      background: rgba(200, 180, 150, 0.12);
+    }
+
+    .reply-by {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: #7a6a5a;
+      margin-top: 15px;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="bg-art"></div>
+    <div class="bg-fade"></div>
+
+    <img class="floral top-left"     src="assets/florals/top-left.png"  alt="">
+    <img class="floral top-right"    src="assets/florals/top-right.png" alt="">
+    <img class="floral bottom-right" src="assets/florals/top-right.png" alt="">
+    <img class="peacock-full"        src="assets/ui/peacock-full.png"   alt="">
+
+    <div class="content">
+
+      <p class="eyebrow">Together with their families</p>
+
+      <p class="request">Request the pleasure of your company</p>
+
+      <div class="names">
+        <span class="name">Yadana Oo</span>
+        <span class="and-word">and</span>
+        <span class="name">James Phillips King</span>
+      </div>
+
+      <p class="date">Saturday, 16 May 2026</p>
+
+      <div class="venue-block">
+        <h2>Wedding Ceremony</h2>
+        <p class="venue-name">The Willows<br>Bournemouth Registry Office</p>
+        <p class="venue-time">12.00 pm</p>
+      </div>
+
+      <div class="venue-block venue-gap">
+        <h2>Reception</h2>
+        <p class="venue-name">The Italian Villa<br>Compton Acres</p>
+      </div>
+
+      <a class="rsvp-btn" href="rsvp/">RSVP</a>
+
+      <p class="reply-by">Reply by Monday 13th April</p>
+
+    </div>
+  </div>
+  <script>
+    var bg = new Image();
+    bg.onload = function () { document.body.classList.add('loaded'); };
+    bg.onerror = function () { document.body.classList.add('loaded'); };
+    bg.src = 'assets/images/bg-villa-soft.png';
+  </script>
+</body>
+</html>

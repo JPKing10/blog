@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP — Yadana &amp; James, 16 May 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="../assets/images/bg-old-harry.png">
+  <link rel="preload" as="image" href="../assets/florals/top-left.png">
+  <link rel="preload" as="image" href="../assets/florals/top-right.png">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { min-height: 100%; }
+
+    body {
+      background-color: #f8f6f2;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: #3a3028;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 0 64px;
+      min-height: 100vh;
+      opacity: 0;
+      filter: blur(6px);
+      transition: opacity 0.7s ease-out, filter 0.7s ease-out;
+    }
+
+    body.loaded {
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .card {
+      max-width: 520px;
+      width: 100%;
+      align-self: flex-start;
+      padding: 48px 28px 110px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border-radius: 0 0 12px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-art {
+      position: absolute;
+      inset: 0;
+      background: url('../assets/images/bg-old-harry.png') center / cover no-repeat;
+      opacity: 0.12;
+      filter: blur(2px);
+      mix-blend-mode: multiply;
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 85%);
+      mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 85%);
+      z-index: 0;
+    }
+
+    .floral {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.92;
+      filter: saturate(0.9);
+      mix-blend-mode: multiply;
+    }
+
+    .top-left {
+      top: 0; left: 0; width: 160px;
+      -webkit-mask-image: radial-gradient(ellipse at top left, black 35%, transparent 72%);
+      mask-image: radial-gradient(ellipse at top left, black 35%, transparent 72%);
+    }
+
+    .top-right {
+      top: 0; right: 0; width: 140px;
+      -webkit-mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
+      mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
+    }
+
+    .bottom-left {
+      bottom: 0; left: 0; width: 130px;
+      -webkit-mask-image: radial-gradient(ellipse at bottom left, black 35%, transparent 72%);
+      mask-image: radial-gradient(ellipse at bottom left, black 35%, transparent 72%);
+    }
+
+    .bottom-right {
+      bottom: 0; right: 0; width: 130px;
+      transform: rotate(90deg);
+      -webkit-mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
+      mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(1.7rem, 7vw, 2.5rem);
+      line-height: 1.2;
+      letter-spacing: 0.5px;
+      color: #2e2820;
+      margin-bottom: 6px;
+    }
+
+    .sub-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #8a7a6a;
+      margin-bottom: 4px;
+    }
+
+    .section-gap { margin: 24px 0; }
+
+    form { text-align: left; }
+
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .form-group { margin-bottom: 22px; }
+
+    .section-title {
+      display: block;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #c8b8a4;
+      padding: 7px 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: #3a3028;
+      outline: none;
+      border-radius: 0;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    select {
+      cursor: pointer;
+      color: #3a3028;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 64px;
+      line-height: 1.55;
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: #c0b0a0; font-style: italic; }
+
+    .attendance-label {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.78rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #4e4238;
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
+
+    .form-divider {
+      height: 1px;
+      background: rgba(192, 168, 136, 0.25);
+      margin: 26px 0;
+    }
+
+    .form-hint {
+      text-align: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #8a7a6a;
+      margin-bottom: 4px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #3a3028;
+    }
+
+    .radio-option input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border: 1px solid #c0a888;
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .radio-option input[type="radio"]:checked { border-color: #8a7a6a; }
+
+    .radio-option input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background: #8a7a6a;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .flow-panel {
+      display: grid;
+      grid-template-rows: 1fr;
+      transition: grid-template-rows 0.45s ease, opacity 0.35s ease;
+      opacity: 1;
+      margin-bottom: 8px;
+    }
+
+    .flow-panel[hidden] {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      pointer-events: none;
+      margin-bottom: 0;
+    }
+
+    .flow-panel-inner {
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .inline-note {
+      margin-top: -4px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: #8a7a6a;
+      font-style: italic;
+    }
+
+    .guest-block {
+      border-top: 1px solid rgba(192, 168, 136, 0.35);
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+
+    .ghost-btn {
+      background: transparent;
+      border: 1px solid rgba(120, 100, 80, 0.55);
+      color: #3a3028;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+      margin-bottom: 12px;
+    }
+
+    .ghost-btn:hover { background: rgba(192, 168, 136, 0.14); border-color: rgba(120, 100, 80, 0.75); }
+    .ghost-btn:focus-visible { outline: 1px solid rgba(120, 100, 80, 0.5); outline-offset: 2px; }
+
+    .ghost-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: none;
+      padding: 2px 0;
+      margin: -8px 0 10px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.92rem;
+      color: #8a7a6a;
+      font-style: italic;
+      cursor: pointer;
+      transition: color 0.25s ease;
+    }
+
+    .remove-btn:hover { color: #5a4e42; }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      max-width: 240px;
+      margin: 28px auto 0;
+      padding: 11px 0;
+      background: transparent;
+      border: 1px solid rgba(120, 100, 80, 0.45);
+      border-radius: 2px;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.26em;
+      color: #3a3028;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .submit-btn:hover { background: rgba(192, 168, 136, 0.12); }
+
+    .post-submit {
+      text-align: left;
+      margin-top: 28px;
+      transition: opacity 0.45s ease;
+    }
+
+    .post-submit[hidden] {
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .confirmation {
+      text-align: center;
+      margin-bottom: 28px;
+      color: #5a4e42;
+      font-style: italic;
+      font-size: clamp(1rem, 4vw, 1.15rem);
+      line-height: 1.6;
+    }
+
+    .details h2 {
+      text-align: center;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: #6a5c4e;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .detail-item { margin-bottom: 16px; }
+
+    .detail-item h3 {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: #8a7a6a;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .detail-item p {
+      font-size: 0.95rem;
+      color: #5a4e42;
+      line-height: 1.55;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 14px;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      color: #8a7a6a;
+      text-decoration: none;
+    }
+
+    .back-link:hover { color: #5a4e42; }
+
+    @media (min-width: 480px) {
+      .radio-group { gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="bg-art"></div>
+
+    <img class="floral top-left" src="../assets/florals/top-left.png" alt="">
+    <img class="floral top-right" src="../assets/florals/top-right.png" alt="">
+    <img class="floral bottom-left" src="../assets/florals/bottom-left.png" alt="">
+    <img class="floral bottom-right" src="../assets/florals/top-right.png" alt="">
+
+    <div class="content">
+      <p class="eyebrow">Yadana &amp; James · 16 May 2026</p>
+      <div id="page-header">
+        <h1>Kindly Reply</h1>
+        <p class="sub-heading">We hope to celebrate with you</p>
+        <p class="sub-heading" style="margin-top:10px; font-size:0.85rem;">Please complete your details first, then add any additional guests.</p>
+      </div>
+
+      <div class="section-gap" id="section-gap"></div>
+
+      <form id="rsvp-form" name="wedding-rsvp" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="wedding-rsvp">
+        <p style="display:none;">
+          <label>Do not fill this: <input name="bot-field"></label>
+        </p>
+        <!-- Pre-register dynamic field names for Netlify build-time discovery -->
+        <div hidden aria-hidden="true">
+          <input name="adult_1_name" disabled><input name="adult_1_dietary" disabled><input name="adult_1_dietary_details" disabled>
+          <input name="child_1_name" disabled><input name="child_1_dietary" disabled><input name="child_1_dietary_details" disabled>
+          <input name="child_2_name" disabled><input name="child_2_dietary" disabled><input name="child_2_dietary_details" disabled>
+        </div>
+
+        <span class="attendance-label">Will you be joining us?</span>
+        <div class="radio-group" role="radiogroup" aria-label="Will you be joining us?">
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="accept" required>
+            Joyfully accepts
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="decline">
+            Regretfully declines
+          </label>
+        </div>
+
+        <p class="form-hint" id="accept-hint" hidden>Please complete your details below</p>
+
+        <div class="form-divider"></div>
+
+        <span class="section-title">Your Details</span>
+
+        <div class="form-group">
+          <label for="lead-name">Your Name</label>
+          <input type="text" id="lead-name" name="lead_name" required placeholder="Full name" autocomplete="name">
+        </div>
+
+        <div id="accept-flow" class="flow-panel" hidden aria-hidden="true">
+          <div class="flow-panel-inner">
+            <div class="form-group">
+              <label for="lead-dietary">Dietary Requirement</label>
+              <select id="lead-dietary" name="lead_dietary" data-dietary="lead" disabled>
+                <option value="none" selected>None</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group flow-panel" id="lead-details-wrap" hidden aria-hidden="true">
+              <div class="flow-panel-inner">
+                <label for="lead-dietary-details">Details</label>
+                <input type="text" id="lead-dietary-details" name="lead_dietary_details" placeholder="Details" disabled>
+              </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <span class="section-title">Additional Guests</span>
+
+            <div class="form-group">
+              <span class="section-title">Additional Adult Guest</span>
+              <div class="inline-note">Maximum 2 adults total (including yourself).</div>
+              <div id="adults-list"></div>
+              <button type="button" class="ghost-btn" id="add-adult" disabled style="margin-top:14px;">+ Add Another Adult</button>
+            </div>
+
+            <div class="form-group">
+              <span class="section-title">Children</span>
+              <div class="inline-note">Maximum 2 children.</div>
+              <div id="children-list"></div>
+              <button type="button" class="ghost-btn" id="add-child" disabled style="margin-top:14px;">+ Add Child</button>
+            </div>
+
+            <div class="form-group">
+              <label for="accept-notes">Additional Notes</label>
+              <textarea id="accept-notes" name="accept_notes" placeholder="Any additional information" disabled></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div id="decline-flow" class="flow-panel" hidden aria-hidden="true">
+          <div class="flow-panel-inner">
+            <div class="form-group">
+              <label for="decline-note">Optional Note</label>
+              <textarea id="decline-note" name="decline_note" placeholder="Any additional information" disabled></textarea>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Reply</button>
+      </form>
+
+      <section class="post-submit" id="post-submit" hidden aria-live="polite">
+        <p class="confirmation">Thank you — your response has been received.</p>
+        <p style="text-align:center; font-style:italic; color:#8a7a6a; font-size:1rem; margin-top:-14px; margin-bottom:28px; line-height:1.6;">We look forward to celebrating with you.</p>
+
+        <div style="text-align:center; margin-bottom: 28px;">
+          <button type="button" class="ghost-btn" id="add-to-calendar-btn">Add to Calendar</button>
+        </div>
+
+        <div class="details">
+          <h2>Details</h2>
+
+          <article class="detail-item">
+            <h3>Ceremony</h3>
+            <p>The ceremony will begin promptly at 12.00 pm. We kindly ask guests to arrive by 11.45 am.</p>
+          </article>
+
+          <article class="detail-item">
+            <h3>Travel</h3>
+            <p>Our ceremony and reception are held at two different venues, approximately 10–15 minutes apart by car.</p>
+          </article>
+
+          <article class="detail-item">
+            <h3>Accommodation</h3>
+            <p>For guests staying in Bournemouth, Hilton Bournemouth is a convenient central option and an easy taxi journey to Compton Acres.</p>
+          </article>
+
+          <article class="detail-item">
+            <h3>Parking</h3>
+            <p>Parking is available at Compton Acres, and guests are welcome to leave cars overnight. Vehicles should be collected by 9.30 am the following morning.</p>
+            <p>There is public parking available near Bournemouth Town Hall. Guests travelling by car are encouraged to check local parking options in advance.</p>
+          </article>
+
+          <article class="detail-item">
+            <h3>Dress Code</h3>
+            <p>Smart attire. Please wear whatever feels comfortable and celebratory.</p>
+          </article>
+
+          <article class="detail-item" style="margin-top:16px; margin-bottom:8px;">
+            <p style="font-style:italic; color:#6a5c4e;">We're simply looking forward to celebrating with you — no gifts needed.</p>
+          </article>
+
+          <article class="detail-item" style="margin-bottom:0;">
+            <p>If you have any questions, please don't hesitate to get in touch.</p>
+          </article>
+        </div>
+      </section>
+
+      <a class="back-link" href="../">← Return to Invitation</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('rsvp-form');
+    const acceptFlow = document.getElementById('accept-flow');
+    const declineFlow = document.getElementById('decline-flow');
+    const postSubmit = document.getElementById('post-submit');
+    const leadDietary = document.getElementById('lead-dietary');
+    const leadDetailsWrap = document.getElementById('lead-details-wrap');
+    const leadDietaryDetails = document.getElementById('lead-dietary-details');
+    const adultsList = document.getElementById('adults-list');
+    const childrenList = document.getElementById('children-list');
+    const addAdultBtn = document.getElementById('add-adult');
+    const addChildBtn = document.getElementById('add-child');
+    const acceptHint = document.getElementById('accept-hint');
+
+    const ADULT_LIMIT = 1;
+    const CHILD_LIMIT = 2;
+
+    let adultCount = 0;
+    let childCount = 0;
+    let adultSerial = 0;
+    let childSerial = 0;
+
+    function setSectionState(section, isVisible) {
+      section.hidden = !isVisible;
+      section.setAttribute('aria-hidden', String(!isVisible));
+
+      section.querySelectorAll('input, select, textarea, button').forEach((field) => {
+        field.disabled = !isVisible;
+      });
+    }
+
+    function toggleDetailField(selectElement, detailWrap, detailInput) {
+      const show = selectElement.value === 'other' && !selectElement.disabled;
+      detailWrap.hidden = !show;
+      detailWrap.setAttribute('aria-hidden', String(!show));
+      detailInput.disabled = !show;
+      detailInput.required = show;
+      if (!show) {
+        detailInput.value = '';
+      }
+    }
+
+    function createLabeledGroup(labelText, field) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'form-group';
+
+      const label = document.createElement('label');
+      label.textContent = labelText;
+      label.setAttribute('for', field.id);
+
+      wrapper.appendChild(label);
+      wrapper.appendChild(field);
+      return wrapper;
+    }
+
+    function createDietarySelect(id, name) {
+      const select = document.createElement('select');
+      select.id = id;
+      select.name = name;
+      select.required = true;
+
+      const options = [
+        { value: 'none', label: 'None' },
+        { value: 'vegetarian', label: 'Vegetarian' },
+        { value: 'vegan', label: 'Vegan' },
+        { value: 'other', label: 'Other' }
+      ];
+
+      options.forEach((optionData) => {
+        const option = document.createElement('option');
+        option.value = optionData.value;
+        option.textContent = optionData.label;
+        select.appendChild(option);
+      });
+
+      select.value = 'none';
+      return select;
+    }
+
+    function createGuestBlock(type, displayIndex, serialIndex) {
+      const block = document.createElement('div');
+      block.className = 'guest-block';
+      block.dataset.guestType = type;
+      block.dataset.index = String(serialIndex);
+
+      const labelPrefix = type === 'adult' ? `Adult ${displayIndex}` : `Child ${displayIndex}`;
+      const dietaryName = `${type}_${serialIndex}_dietary`;
+      const detailsName = `${type}_${serialIndex}_dietary_details`;
+      const nameName = `${type}_${serialIndex}_name`;
+
+      const nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.id = nameName;
+      nameInput.name = nameName;
+      nameInput.required = true;
+      nameInput.placeholder = 'Full name';
+      block.appendChild(createLabeledGroup(`${labelPrefix} Name`, nameInput));
+
+      const dietarySelect = createDietarySelect(dietaryName, dietaryName);
+      block.appendChild(createLabeledGroup('Dietary Requirement', dietarySelect));
+
+      const detailsWrap = document.createElement('div');
+      detailsWrap.className = 'form-group flow-panel';
+      detailsWrap.hidden = true;
+      detailsWrap.setAttribute('aria-hidden', 'true');
+
+      const detailsInner = document.createElement('div');
+      detailsInner.className = 'flow-panel-inner';
+
+      const detailsInput = document.createElement('input');
+      detailsInput.type = 'text';
+      detailsInput.id = detailsName;
+      detailsInput.name = detailsName;
+      detailsInput.placeholder = 'Details';
+      detailsInput.disabled = true;
+
+      const detailsLabel = document.createElement('label');
+      detailsLabel.setAttribute('for', detailsName);
+      detailsLabel.textContent = 'Details';
+
+      detailsInner.appendChild(detailsLabel);
+      detailsInner.appendChild(detailsInput);
+      detailsWrap.appendChild(detailsInner);
+      block.appendChild(detailsWrap);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'remove-btn';
+      removeBtn.textContent = type === 'adult' ? 'Remove adult' : 'Remove child';
+      removeBtn.addEventListener('click', () => {
+        block.remove();
+        if (type === 'adult') {
+          adultCount = Math.max(0, adultCount - 1);
+        } else {
+          childCount = Math.max(0, childCount - 1);
+        }
+        syncButtons();
+      });
+      block.appendChild(removeBtn);
+
+      dietarySelect.addEventListener('change', () => {
+        toggleDetailField(dietarySelect, detailsWrap, detailsInput);
+      });
+
+      return block;
+    }
+
+    function syncButtons() {
+      addAdultBtn.disabled = adultCount >= ADULT_LIMIT || acceptFlow.hidden;
+      addChildBtn.disabled = childCount >= CHILD_LIMIT || acceptFlow.hidden;
+    }
+
+    function setAttendanceMode(mode) {
+      acceptHint.hidden = mode !== 'accept';
+
+      if (mode === 'accept') {
+        setSectionState(acceptFlow, true);
+        setSectionState(declineFlow, false);
+        leadDietary.required = true;
+      } else if (mode === 'decline') {
+        setSectionState(acceptFlow, false);
+        setSectionState(declineFlow, true);
+        leadDietary.required = false;
+      } else {
+        setSectionState(acceptFlow, false);
+        setSectionState(declineFlow, false);
+        leadDietary.required = false;
+      }
+
+      if (mode !== 'accept') {
+        leadDietary.value = 'none';
+        toggleDetailField(leadDietary, leadDetailsWrap, leadDietaryDetails);
+        adultsList.innerHTML = '';
+        childrenList.innerHTML = '';
+        adultCount = 0;
+        childCount = 0;
+        adultSerial = 0;
+        childSerial = 0;
+      }
+
+      syncButtons();
+    }
+
+    document.querySelectorAll('input[name="attendance"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        setAttendanceMode(radio.value);
+      });
+    });
+
+    leadDietary.addEventListener('change', () => {
+      toggleDetailField(leadDietary, leadDetailsWrap, leadDietaryDetails);
+    });
+
+    addAdultBtn.addEventListener('click', () => {
+      if (adultCount >= ADULT_LIMIT) {
+        return;
+      }
+      adultSerial += 1;
+      adultCount += 1;
+      adultsList.appendChild(createGuestBlock('adult', adultCount, adultSerial));
+      syncButtons();
+    });
+
+    addChildBtn.addEventListener('click', () => {
+      if (childCount >= CHILD_LIMIT) {
+        return;
+      }
+      childSerial += 1;
+      childCount += 1;
+      childrenList.appendChild(createGuestBlock('child', childCount, childSerial));
+      syncButtons();
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const attendance = form.querySelector('input[name="attendance"]:checked');
+      if (!attendance) {
+        form.reportValidity();
+        return;
+      }
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = new FormData(form);
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString()
+      })
+      .catch(() => null)
+      .finally(() => {
+        form.hidden = true;
+        document.getElementById('page-header').hidden = true;
+        document.getElementById('section-gap').hidden = true;
+        postSubmit.hidden = false;
+        postSubmit.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    setAttendanceMode(null);
+
+    var bgImg = new Image();
+    bgImg.onload = function () { document.body.classList.add('loaded'); };
+    bgImg.onerror = function () { document.body.classList.add('loaded'); };
+    bgImg.src = '../assets/images/bg-old-harry.png';
+
+    document.getElementById('add-to-calendar-btn').addEventListener('click', () => {
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Yadana & James Wedding//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'UID:ceremony-20260516@yadana-james-wedding',
+        'DTSTART:20260516T110000Z',
+        'DTEND:20260516T120000Z',
+        'SUMMARY:Yadana & James Wedding Ceremony',
+        'LOCATION:The Willows\\, Bournemouth Registry Office',
+        'DESCRIPTION:Wedding ceremony for Yadana Oo and James Phillips King.',
+        'END:VEVENT',
+        'BEGIN:VEVENT',
+        'UID:reception-20260516@yadana-james-wedding',
+        'DTSTART:20260516T120000Z',
+        'DTEND:20260516T230000Z',
+        'SUMMARY:Yadana & James Wedding Reception',
+        'LOCATION:The Italian Villa\\, Compton Acres',
+        'DESCRIPTION:Wedding reception for Yadana Oo and James Phillips King.',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'yadana-james-wedding.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
