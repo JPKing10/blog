@@ -461,9 +461,7 @@
                 <option value="none" selected>None</option>
                 <option value="vegetarian">Vegetarian</option>
                 <option value="vegan">Vegan</option>
-                <option value="halal">Halal</option>
-                <option value="gluten-free">Gluten-free</option>
-                <option value="allergy-other">Allergy / Other</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
@@ -589,7 +587,7 @@
     }
 
     function toggleDetailField(selectElement, detailWrap, detailInput) {
-      const show = selectElement.value === 'allergy-other' && !selectElement.disabled;
+      const show = selectElement.value === 'other' && !selectElement.disabled;
       detailWrap.hidden = !show;
       detailWrap.setAttribute('aria-hidden', String(!show));
       detailInput.disabled = !show;
@@ -622,9 +620,7 @@
         { value: 'none', label: 'None' },
         { value: 'vegetarian', label: 'Vegetarian' },
         { value: 'vegan', label: 'Vegan' },
-        { value: 'halal', label: 'Halal' },
-        { value: 'gluten-free', label: 'Gluten-free' },
-        { value: 'allergy-other', label: 'Allergy / Other' }
+        { value: 'other', label: 'Other' }
       ];
 
       options.forEach((optionData) => {
