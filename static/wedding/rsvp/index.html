@@ -312,6 +312,37 @@
       margin-bottom: 12px;
     }
 
+    /* ── Travel ── */
+    .travel-section {
+      margin-top: 32px;
+      text-align: left;
+    }
+
+    .travel-section h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .travel-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .travel-list li {
+      font-size: 0.87rem;
+      color: #5a4e42;
+      line-height: 1.55;
+      padding: 3px 0 3px 18px;
+      position: relative;
+    }
+
+    .travel-list li::before {
+      content: '·';
+      position: absolute;
+      left: 6px;
+      color: #c0a888;
+    }
+
     /* ── Back link ── */
     .back-link {
       display: block;
@@ -425,6 +456,15 @@
       <div class="success-msg" id="success-msg" hidden>
         <span class="success-mark">✦</span>
         <p id="success-text">Thank you — we look forward to celebrating with you.</p>
+      </div>
+
+      <div class="travel-section">
+        <h2>Travel &amp; Parking</h2>
+        <ul class="travel-list">
+          <li>The Willows: limited parking — nearby public parking available</li>
+          <li>Italian Villa at Compton Acres: approx. 30 spaces</li>
+          <li>Venues are close to each other — a taxi between them is easy</li>
+        </ul>
       </div>
 
       <a class="back-link" href="../">← Return to Invitation</a>
