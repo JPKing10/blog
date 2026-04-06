@@ -293,6 +293,21 @@
       cursor: not-allowed;
     }
 
+    .remove-btn {
+      background: transparent;
+      border: none;
+      padding: 2px 0;
+      margin: -8px 0 10px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.92rem;
+      color: #8a7a6a;
+      font-style: italic;
+      cursor: pointer;
+      transition: color 0.25s ease;
+    }
+
+    .remove-btn:hover { color: #5a4e42; }
+
     .submit-btn {
       display: block;
       width: 100%;
@@ -532,6 +547,8 @@
 
     let adultCount = 0;
     let childCount = 0;
+    let adultSerial = 0;
+    let childSerial = 0;
 
     function setSectionState(section, isVisible) {
       section.hidden = !isVisible;
@@ -553,43 +570,105 @@
       }
     }
 
-    function createGuestBlock(type, index) {
+    function createLabeledGroup(labelText, field) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'form-group';
+
+      const label = document.createElement('label');
+      label.textContent = labelText;
+      label.setAttribute('for', field.id);
+
+      wrapper.appendChild(label);
+      wrapper.appendChild(field);
+      return wrapper;
+    }
+
+    function createDietarySelect(id, name) {
+      const select = document.createElement('select');
+      select.id = id;
+      select.name = name;
+      select.required = true;
+
+      const options = [
+        { value: '', label: 'Please select' },
+        { value: 'none', label: 'None' },
+        { value: 'vegetarian', label: 'Vegetarian' },
+        { value: 'vegan', label: 'Vegan' },
+        { value: 'halal', label: 'Halal' },
+        { value: 'gluten-free', label: 'Gluten-free' },
+        { value: 'allergy-other', label: 'Allergy / Other' }
+      ];
+
+      options.forEach((optionData) => {
+        const option = document.createElement('option');
+        option.value = optionData.value;
+        option.textContent = optionData.label;
+        select.appendChild(option);
+      });
+
+      return select;
+    }
+
+    function createGuestBlock(type, displayIndex, serialIndex) {
       const block = document.createElement('div');
       block.className = 'guest-block';
+      block.dataset.guestType = type;
+      block.dataset.index = String(serialIndex);
 
-      const labelPrefix = type === 'adult' ? `Adult ${index}` : `Child ${index}`;
-      const dietaryName = `${type}_${index}_dietary`;
-      const detailsName = `${type}_${index}_dietary_details`;
-      const nameName = `${type}_${index}_name`;
+      const labelPrefix = type === 'adult' ? `Adult ${displayIndex}` : `Child ${displayIndex}`;
+      const dietaryName = `${type}_${serialIndex}_dietary`;
+      const detailsName = `${type}_${serialIndex}_dietary_details`;
+      const nameName = `${type}_${serialIndex}_name`;
 
-      block.innerHTML = `
-        <div class="form-group">
-          <label for="${nameName}">${labelPrefix} Name</label>
-          <input type="text" id="${nameName}" name="${nameName}" required placeholder="${labelPrefix} name">
-        </div>
-        <div class="form-group">
-          <label for="${dietaryName}">Dietary Requirement</label>
-          <select id="${dietaryName}" name="${dietaryName}" required>
-            <option value="">Please select</option>
-            <option value="none">None</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="vegan">Vegan</option>
-            <option value="halal">Halal</option>
-            <option value="gluten-free">Gluten-free</option>
-            <option value="allergy-other">Allergy / Other</option>
-          </select>
-        </div>
-        <div class="form-group flow-panel" hidden aria-hidden="true">
-          <div class="flow-panel-inner">
-            <label for="${detailsName}">Details</label>
-            <input type="text" id="${detailsName}" name="${detailsName}" placeholder="Details" disabled>
-          </div>
-        </div>
-      `;
+      const nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.id = nameName;
+      nameInput.name = nameName;
+      nameInput.required = true;
+      nameInput.placeholder = `${labelPrefix} name`;
+      block.appendChild(createLabeledGroup(`${labelPrefix} Name`, nameInput));
 
-      const dietarySelect = block.querySelector(`#${dietaryName}`);
-      const detailsWrap = block.querySelector('.flow-panel');
-      const detailsInput = block.querySelector(`#${detailsName}`);
+      const dietarySelect = createDietarySelect(dietaryName, dietaryName);
+      block.appendChild(createLabeledGroup('Dietary Requirement', dietarySelect));
+
+      const detailsWrap = document.createElement('div');
+      detailsWrap.className = 'form-group flow-panel';
+      detailsWrap.hidden = true;
+      detailsWrap.setAttribute('aria-hidden', 'true');
+
+      const detailsInner = document.createElement('div');
+      detailsInner.className = 'flow-panel-inner';
+
+      const detailsInput = document.createElement('input');
+      detailsInput.type = 'text';
+      detailsInput.id = detailsName;
+      detailsInput.name = detailsName;
+      detailsInput.placeholder = 'Details';
+      detailsInput.disabled = true;
+
+      const detailsLabel = document.createElement('label');
+      detailsLabel.setAttribute('for', detailsName);
+      detailsLabel.textContent = 'Details';
+
+      detailsInner.appendChild(detailsLabel);
+      detailsInner.appendChild(detailsInput);
+      detailsWrap.appendChild(detailsInner);
+      block.appendChild(detailsWrap);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'remove-btn';
+      removeBtn.textContent = type === 'adult' ? 'Remove adult' : 'Remove child';
+      removeBtn.addEventListener('click', () => {
+        block.remove();
+        if (type === 'adult') {
+          adultCount = Math.max(0, adultCount - 1);
+        } else {
+          childCount = Math.max(0, childCount - 1);
+        }
+        syncButtons();
+      });
+      block.appendChild(removeBtn);
 
       dietarySelect.addEventListener('change', () => {
         toggleDetailField(dietarySelect, detailsWrap, detailsInput);
@@ -625,6 +704,8 @@
         childrenList.innerHTML = '';
         adultCount = 0;
         childCount = 0;
+        adultSerial = 0;
+        childSerial = 0;
       }
 
       syncButtons();
@@ -644,8 +725,9 @@
       if (adultCount >= ADULT_LIMIT) {
         return;
       }
+      adultSerial += 1;
       adultCount += 1;
-      adultsList.appendChild(createGuestBlock('adult', adultCount));
+      adultsList.appendChild(createGuestBlock('adult', adultCount, adultSerial));
       syncButtons();
     });
 
@@ -653,8 +735,9 @@
       if (childCount >= CHILD_LIMIT) {
         return;
       }
+      childSerial += 1;
       childCount += 1;
-      childrenList.appendChild(createGuestBlock('child', childCount));
+      childrenList.appendChild(createGuestBlock('child', childCount, childSerial));
       syncButtons();
     });
 
