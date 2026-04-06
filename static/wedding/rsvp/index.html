@@ -421,6 +421,7 @@
       <p class="eyebrow">Yadana &amp; James · 16 May 2026</p>
       <h1>Kindly Reply</h1>
       <p class="sub-heading">We hope to celebrate with you</p>
+      <p class="sub-heading" style="margin-top:10px; font-size:0.85rem;">Please complete this form for yourself first, then add any additional guests.</p>
 
       <div class="section-gap"></div>
 
@@ -449,8 +450,8 @@
         </div>
 
         <div class="form-group">
-          <label for="lead-name">Lead Guest Name</label>
-          <input type="text" id="lead-name" name="lead_name" required placeholder="Your full name" autocomplete="name">
+          <label for="lead-name">Your Name</label>
+          <input type="text" id="lead-name" name="lead_name" required placeholder="Full name" autocomplete="name">
         </div>
 
         <div id="accept-flow" class="flow-panel" hidden aria-hidden="true">
@@ -472,11 +473,15 @@
               </div>
             </div>
 
+            <div class="form-group" style="margin-top:8px;">
+              <span class="section-title">Add other guests in your party</span>
+            </div>
+
             <div class="form-group">
-              <span class="section-title">Adults</span>
-              <div class="inline-note">Maximum 2 adults total (including lead guest).</div>
+              <span class="section-title">Additional Adult Guest</span>
+              <div class="inline-note">Maximum 2 adults total (including yourself).</div>
               <div id="adults-list"></div>
-              <button type="button" class="ghost-btn" id="add-adult" disabled style="margin-top:14px;">+ Add Adult</button>
+              <button type="button" class="ghost-btn" id="add-adult" disabled style="margin-top:14px;">+ Add Another Adult</button>
             </div>
 
             <div class="form-group">
@@ -650,7 +655,7 @@
       nameInput.id = nameName;
       nameInput.name = nameName;
       nameInput.required = true;
-      nameInput.placeholder = `${labelPrefix} name`;
+      nameInput.placeholder = 'Full name';
       block.appendChild(createLabeledGroup(`${labelPrefix} Name`, nameInput));
 
       const dietarySelect = createDietarySelect(dietaryName, dietaryName);
