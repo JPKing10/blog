@@ -441,8 +441,7 @@
             <div class="form-group">
               <label for="lead-dietary">Dietary Requirement</label>
               <select id="lead-dietary" name="lead_dietary" data-dietary="lead" disabled>
-                <option value="">Please select</option>
-                <option value="none">None</option>
+                <option value="none" selected>None</option>
                 <option value="vegetarian">Vegetarian</option>
                 <option value="vegan">Vegan</option>
                 <option value="halal">Halal</option>
@@ -494,12 +493,16 @@
       <section class="post-submit" id="post-submit" hidden aria-live="polite">
         <p class="confirmation">Thank you — your response has been received.</p>
 
+        <div style="text-align:center; margin-bottom: 28px;">
+          <button type="button" class="ghost-btn" id="add-to-calendar-btn">Add to Calendar</button>
+        </div>
+
         <div class="details">
           <h2>Details</h2>
 
           <article class="detail-item">
             <h3>RSVP Deadline</h3>
-            <p>Kindly reply by Monday 13th.</p>
+            <p>Reply by Monday 13th April.</p>
           </article>
 
           <article class="detail-item">
@@ -599,7 +602,6 @@
       select.required = true;
 
       const options = [
-        { value: '', label: 'Please select' },
         { value: 'none', label: 'None' },
         { value: 'vegetarian', label: 'Vegetarian' },
         { value: 'vegan', label: 'Vegan' },
@@ -615,6 +617,7 @@
         select.appendChild(option);
       });
 
+      select.value = 'none';
       return select;
     }
 
@@ -707,7 +710,7 @@
       }
 
       if (mode !== 'accept') {
-        leadDietary.value = '';
+        leadDietary.value = 'none';
         toggleDetailField(leadDietary, leadDetailsWrap, leadDietaryDetails);
         adultsList.innerHTML = '';
         childrenList.innerHTML = '';
@@ -780,6 +783,43 @@
     });
 
     setAttendanceMode(null);
+
+    document.getElementById('add-to-calendar-btn').addEventListener('click', () => {
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Yadana & James Wedding//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'UID:ceremony-20260516@yadana-james-wedding',
+        'DTSTART:20260516T110000Z',
+        'DTEND:20260516T120000Z',
+        'SUMMARY:Yadana & James Wedding Ceremony',
+        'LOCATION:The Willows\\, Bournemouth Registry Office',
+        'DESCRIPTION:Wedding ceremony for Yadana Oo and James Phillips King.',
+        'END:VEVENT',
+        'BEGIN:VEVENT',
+        'UID:reception-20260516@yadana-james-wedding',
+        'DTSTART:20260516T123000Z',
+        'DTEND:20260516T210000Z',
+        'SUMMARY:Yadana & James Wedding Reception',
+        'LOCATION:The Italian Villa\\, Compton Acres',
+        'DESCRIPTION:Wedding reception for Yadana Oo and James Phillips King.',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'yadana-james-wedding.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
   </script>
 </body>
 </html>
