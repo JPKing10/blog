@@ -436,11 +436,13 @@
 
     <div class="content">
       <p class="eyebrow">Yadana &amp; James · 16 May 2026</p>
-      <h1>Kindly Reply</h1>
-      <p class="sub-heading">We hope to celebrate with you</p>
-      <p class="sub-heading" style="margin-top:10px; font-size:0.85rem;">Please complete your details first, then add any additional guests.</p>
+      <div id="page-header">
+        <h1>Kindly Reply</h1>
+        <p class="sub-heading">We hope to celebrate with you</p>
+        <p class="sub-heading" style="margin-top:10px; font-size:0.85rem;">Please complete your details first, then add any additional guests.</p>
+      </div>
 
-      <div class="section-gap"></div>
+      <div class="section-gap" id="section-gap"></div>
 
       <form id="rsvp-form" name="wedding-rsvp" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
         <input type="hidden" name="form-name" value="wedding-rsvp">
@@ -535,6 +537,7 @@
 
       <section class="post-submit" id="post-submit" hidden aria-live="polite">
         <p class="confirmation">Thank you — your response has been received.</p>
+        <p style="text-align:center; font-style:italic; color:#8a7a6a; font-size:1rem; margin-top:-14px; margin-bottom:28px; line-height:1.6;">We look forward to celebrating with you.</p>
 
         <div style="text-align:center; margin-bottom: 28px;">
           <button type="button" class="ghost-btn" id="add-to-calendar-btn">Add to Calendar</button>
@@ -820,6 +823,8 @@
       .catch(() => null)
       .finally(() => {
         form.hidden = true;
+        document.getElementById('page-header').hidden = true;
+        document.getElementById('section-gap').hidden = true;
         postSubmit.hidden = false;
         postSubmit.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
