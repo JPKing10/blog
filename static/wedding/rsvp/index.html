@@ -418,6 +418,12 @@
         <p style="display:none;">
           <label>Do not fill this: <input name="bot-field"></label>
         </p>
+        <!-- Pre-register dynamic field names for Netlify build-time discovery -->
+        <div hidden aria-hidden="true">
+          <input name="adult_1_name"><input name="adult_1_dietary"><input name="adult_1_dietary_details">
+          <input name="child_1_name"><input name="child_1_dietary"><input name="child_1_dietary_details">
+          <input name="child_2_name"><input name="child_2_dietary"><input name="child_2_dietary_details">
+        </div>
 
         <span class="attendance-label">Will you be joining us?</span>
         <div class="radio-group" role="radiogroup" aria-label="Will you be joining us?">
