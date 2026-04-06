@@ -431,9 +431,9 @@
         </p>
         <!-- Pre-register dynamic field names for Netlify build-time discovery -->
         <div hidden aria-hidden="true">
-          <input name="adult_1_name"><input name="adult_1_dietary"><input name="adult_1_dietary_details">
-          <input name="child_1_name"><input name="child_1_dietary"><input name="child_1_dietary_details">
-          <input name="child_2_name"><input name="child_2_dietary"><input name="child_2_dietary_details">
+          <input name="adult_1_name" disabled><input name="adult_1_dietary" disabled><input name="adult_1_dietary_details" disabled>
+          <input name="child_1_name" disabled><input name="child_1_dietary" disabled><input name="child_1_dietary_details" disabled>
+          <input name="child_2_name" disabled><input name="child_2_dietary" disabled><input name="child_2_dietary_details" disabled>
         </div>
 
         <span class="attendance-label">Will you be joining us?</span>
@@ -476,16 +476,16 @@
 
             <div class="form-group">
               <span class="section-title">Adults</span>
-              <button type="button" class="ghost-btn" id="add-adult" disabled>+ Add Adult</button>
               <div class="inline-note">Maximum 2 adults total (including lead guest).</div>
               <div id="adults-list"></div>
+              <button type="button" class="ghost-btn" id="add-adult" disabled style="margin-top:14px;">+ Add Adult</button>
             </div>
 
             <div class="form-group">
               <span class="section-title">Children</span>
-              <button type="button" class="ghost-btn" id="add-child" disabled>+ Add Child</button>
               <div class="inline-note">Maximum 2 children.</div>
               <div id="children-list"></div>
+              <button type="button" class="ghost-btn" id="add-child" disabled style="margin-top:14px;">+ Add Child</button>
             </div>
 
             <div class="form-group">
