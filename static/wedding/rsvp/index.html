@@ -14,9 +14,7 @@
       padding: 0;
     }
 
-    html {
-      min-height: 100%;
-    }
+    html { min-height: 100%; }
 
     body {
       background-color: #f8f6f2;
@@ -29,7 +27,6 @@
       min-height: 100vh;
     }
 
-    /* ── Card ── */
     .card {
       max-width: 520px;
       width: 100%;
@@ -43,7 +40,6 @@
       overflow: hidden;
     }
 
-    /* ── Background art layer ── */
     .bg-art {
       position: absolute;
       inset: 0;
@@ -51,20 +47,11 @@
       opacity: 0.12;
       filter: blur(2px);
       mix-blend-mode: multiply;
-      -webkit-mask-image: radial-gradient(
-        ellipse at center,
-        rgba(0, 0, 0, 1) 55%,
-        rgba(0, 0, 0, 0) 85%
-      );
-      mask-image: radial-gradient(
-        ellipse at center,
-        rgba(0, 0, 0, 1) 55%,
-        rgba(0, 0, 0, 0) 85%
-      );
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 85%);
+      mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 85%);
       z-index: 0;
     }
 
-    /* ── Florals ── */
     .floral {
       position: absolute;
       pointer-events: none;
@@ -79,16 +66,19 @@
       -webkit-mask-image: radial-gradient(ellipse at top left, black 35%, transparent 72%);
       mask-image: radial-gradient(ellipse at top left, black 35%, transparent 72%);
     }
+
     .top-right {
       top: 0; right: 0; width: 140px;
       -webkit-mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
       mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
     }
+
     .bottom-left {
       bottom: 0; left: 0; width: 130px;
       -webkit-mask-image: radial-gradient(ellipse at bottom left, black 35%, transparent 72%);
       mask-image: radial-gradient(ellipse at bottom left, black 35%, transparent 72%);
     }
+
     .bottom-right {
       bottom: 0; right: 0; width: 130px;
       transform: rotate(90deg);
@@ -96,14 +86,12 @@
       mask-image: radial-gradient(ellipse at top right, black 35%, transparent 72%);
     }
 
-    /* ── Content layer ── */
     .content {
       position: relative;
       z-index: 2;
       text-align: center;
     }
 
-    /* ── Typography ── */
     .eyebrow {
       font-family: 'Cormorant SC', Georgia, serif;
       font-size: 0.68rem;
@@ -131,13 +119,9 @@
       margin-bottom: 4px;
     }
 
-    /* ── Section spacing ── */
     .section-gap { margin: 24px 0; }
 
-/* ── Form ── */
-    form {
-      text-align: left;
-    }
+    form { text-align: left; }
 
     fieldset {
       border: none;
@@ -145,8 +129,16 @@
       margin: 0;
     }
 
-    .form-group {
-      margin-bottom: 22px;
+    .form-group { margin-bottom: 22px; }
+
+    .section-title {
+      display: block;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      margin-bottom: 12px;
     }
 
     label {
@@ -160,15 +152,13 @@
     }
 
     input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="number"],
+    select,
     textarea {
       width: 100%;
       background: transparent;
       border: none;
       border-bottom: 1px solid #c8b8a4;
-      padding: 6px 0;
+      padding: 7px 0;
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1rem;
       color: #3a3028;
@@ -178,8 +168,9 @@
       -webkit-appearance: none;
     }
 
-    input[type="number"] {
-      width: 80px;
+    select {
+      cursor: pointer;
+      color: #3a3028;
     }
 
     textarea {
@@ -189,12 +180,8 @@
     }
 
     input::placeholder,
-    textarea::placeholder {
-      color: #c0b0a0;
-      font-style: italic;
-    }
+    textarea::placeholder { color: #c0b0a0; font-style: italic; }
 
-    /* ── Attendance radio group ── */
     .attendance-label {
       font-family: 'Cormorant SC', Georgia, serif;
       font-size: 0.68rem;
@@ -208,9 +195,10 @@
 
     .radio-group {
       display: flex;
-      gap: 32px;
+      gap: 20px;
       justify-content: center;
       margin-bottom: 28px;
+      flex-wrap: wrap;
     }
 
     .radio-option {
@@ -218,7 +206,6 @@
       align-items: center;
       gap: 9px;
       cursor: pointer;
-      font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1rem;
       color: #3a3028;
     }
@@ -236,9 +223,7 @@
       transition: border-color 0.2s;
     }
 
-    .radio-option input[type="radio"]:checked {
-      border-color: #8a7a6a;
-    }
+    .radio-option input[type="radio"]:checked { border-color: #8a7a6a; }
 
     .radio-option input[type="radio"]:checked::after {
       content: '';
@@ -252,100 +237,133 @@
       transform: translate(-50%, -50%);
     }
 
-    /* ── Number row ── */
-    .number-row {
-      display: flex;
-      gap: 32px;
+    .flow-panel {
+      display: grid;
+      grid-template-rows: 1fr;
+      transition: grid-template-rows 0.45s ease, opacity 0.35s ease;
+      opacity: 1;
+      margin-bottom: 8px;
     }
 
-    .number-row .form-group {
-      flex: 1;
+    .flow-panel[hidden] {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      pointer-events: none;
+      margin-bottom: 0;
     }
 
-    /* ── Attendance-only fields ── */
-    .attending-fields {
-      transition: opacity 0.25s;
+    .flow-panel-inner {
+      min-height: 0;
+      overflow: hidden;
     }
 
-    .attending-fields[hidden] {
-      display: none;
+    .inline-note {
+      margin-top: -4px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: #8a7a6a;
+      font-style: italic;
     }
 
-    /* ── Submit button ── */
+    .guest-block {
+      border-top: 1px solid rgba(192, 168, 136, 0.35);
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+
+    .ghost-btn {
+      background: transparent;
+      border: 1px solid rgba(120, 100, 80, 0.4);
+      color: #3a3028;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background 0.25s ease, opacity 0.25s ease;
+      margin-bottom: 12px;
+    }
+
+    .ghost-btn:hover { background: rgba(192, 168, 136, 0.12); }
+
+    .ghost-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
     .submit-btn {
       display: block;
       width: 100%;
       max-width: 240px;
-      margin: 36px auto 0;
+      margin: 28px auto 0;
       padding: 11px 0;
       background: transparent;
-      border: 1px solid #c0a888;
+      border: 1px solid rgba(120, 100, 80, 0.45);
       border-radius: 2px;
       font-family: 'Cormorant SC', Georgia, serif;
-      font-size: 0.75rem;
-      letter-spacing: 4px;
+      font-size: 0.74rem;
+      letter-spacing: 0.26em;
       color: #3a3028;
       cursor: pointer;
-      transition: background 0.25s;
+      transition: background 0.3s ease;
+      text-transform: uppercase;
     }
 
-    .submit-btn:hover {
-      background: rgba(192, 168, 136, 0.12);
+    .submit-btn:hover { background: rgba(192, 168, 136, 0.12); }
+
+    .post-submit {
+      text-align: left;
+      margin-top: 28px;
+      transition: opacity 0.45s ease;
     }
 
-    /* ── Success message ── */
-    .success-msg {
+    .post-submit[hidden] {
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .confirmation {
       text-align: center;
-      padding: 20px 0 8px;
-    }
-
-    .success-msg p {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      margin-bottom: 28px;
+      color: #5a4e42;
       font-style: italic;
       font-size: clamp(1rem, 4vw, 1.15rem);
-      color: #5a4e42;
       line-height: 1.6;
     }
 
-    .success-msg .success-mark {
-      font-size: 1.4rem;
-      color: #b0a090;
-      display: block;
-      margin-bottom: 12px;
-    }
-
-    /* ── Travel ── */
-    .travel-section {
-      margin-top: 32px;
-      text-align: left;
-    }
-
-    .travel-section h2 {
+    .details h2 {
       text-align: center;
-      margin-bottom: 10px;
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: #6a5c4e;
+      margin-bottom: 16px;
+      text-transform: uppercase;
     }
 
-    .travel-list {
-      list-style: none;
-      padding: 0;
+    .detail-item { margin-bottom: 16px; }
+
+    .detail-item h3 {
+      font-family: 'Cormorant SC', Georgia, serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: #8a7a6a;
+      margin-bottom: 6px;
+      text-transform: uppercase;
     }
 
-    .travel-list li {
-      font-size: 0.87rem;
+    .detail-item p {
+      font-size: 0.95rem;
       color: #5a4e42;
       line-height: 1.55;
-      padding: 3px 0 3px 18px;
-      position: relative;
     }
 
-    .travel-list li::before {
-      content: '·';
-      position: absolute;
-      left: 6px;
-      color: #c0a888;
-    }
-
-    /* ── Back link ── */
     .back-link {
       display: block;
       text-align: center;
@@ -357,8 +375,10 @@
       text-decoration: none;
     }
 
-    .back-link:hover {
-      color: #5a4e42;
+    .back-link:hover { color: #5a4e42; }
+
+    @media (min-width: 480px) {
+      .radio-group { gap: 32px; }
     }
   </style>
 </head>
@@ -366,34 +386,26 @@
   <div class="card">
     <div class="bg-art"></div>
 
-    <img class="floral top-left"     src="../assets/florals/top-left.png"     alt="">
-    <img class="floral top-right"    src="../assets/florals/top-right.png"    alt="">
-    <img class="floral bottom-left"  src="../assets/florals/bottom-left.png"  alt="">
+    <img class="floral top-left" src="../assets/florals/top-left.png" alt="">
+    <img class="floral top-right" src="../assets/florals/top-right.png" alt="">
+    <img class="floral bottom-left" src="../assets/florals/bottom-left.png" alt="">
     <img class="floral bottom-right" src="../assets/florals/top-right.png" alt="">
 
     <div class="content">
-
       <p class="eyebrow">Yadana &amp; James · 16 May 2026</p>
       <h1>Kindly Reply</h1>
       <p class="sub-heading">We hope to celebrate with you</p>
 
       <div class="section-gap"></div>
 
-      <form
-        id="rsvp-form"
-        name="wedding-rsvp"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-      >
+      <form id="rsvp-form" name="wedding-rsvp" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
         <input type="hidden" name="form-name" value="wedding-rsvp">
         <p style="display:none;">
           <label>Do not fill this: <input name="bot-field"></label>
         </p>
 
-        <!-- Attendance -->
         <span class="attendance-label">Will you be joining us?</span>
-        <div class="radio-group">
+        <div class="radio-group" role="radiogroup" aria-label="Will you be joining us?">
           <label class="radio-option">
             <input type="radio" name="attendance" value="accept" required>
             Joyfully accepts
@@ -404,122 +416,278 @@
           </label>
         </div>
 
-        <!-- Always-visible fields -->
         <div class="form-group">
-          <label for="full-name">Full Name</label>
-          <input type="text" id="full-name" name="full_name" required placeholder="Your full name">
+          <label for="lead-name">Lead Guest Name</label>
+          <input type="text" id="lead-name" name="lead_name" required placeholder="Your full name" autocomplete="name">
         </div>
 
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required placeholder="your@email.com">
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Phone <span style="font-style:italic;font-family:'Cormorant Garamond',serif;text-transform:none;letter-spacing:0;font-size:0.95em;color:#b0a090;">(optional)</span></label>
-          <input type="tel" id="phone" name="phone" placeholder="+44 …">
-        </div>
-
-        <!-- Attending-only fields -->
-        <fieldset class="attending-fields" id="attending-fields" hidden>
-
-          <div class="number-row">
+        <div id="accept-flow" class="flow-panel" hidden aria-hidden="true">
+          <div class="flow-panel-inner">
             <div class="form-group">
-              <label for="adults">Adults Attending</label>
-              <input type="number" id="adults" name="adults" min="1" value="1">
+              <label for="lead-dietary">Dietary Requirement</label>
+              <select id="lead-dietary" name="lead_dietary" data-dietary="lead" disabled>
+                <option value="">Please select</option>
+                <option value="none">None</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="halal">Halal</option>
+                <option value="gluten-free">Gluten-free</option>
+                <option value="allergy-other">Allergy / Other</option>
+              </select>
             </div>
+
+            <div class="form-group flow-panel" id="lead-details-wrap" hidden aria-hidden="true">
+              <div class="flow-panel-inner">
+                <label for="lead-dietary-details">Details</label>
+                <input type="text" id="lead-dietary-details" name="lead_dietary_details" placeholder="Details" disabled>
+              </div>
+            </div>
+
             <div class="form-group">
-              <label for="children">Children</label>
-              <input type="number" id="children" name="children" min="0" value="0">
+              <span class="section-title">Adults</span>
+              <button type="button" class="ghost-btn" id="add-adult" disabled>+ Add Adult</button>
+              <div class="inline-note">Maximum 2 adults total (including lead guest).</div>
+              <div id="adults-list"></div>
+            </div>
+
+            <div class="form-group">
+              <span class="section-title">Children</span>
+              <button type="button" class="ghost-btn" id="add-child" disabled>+ Add Child</button>
+              <div class="inline-note">Maximum 2 children.</div>
+              <div id="children-list"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="accept-notes">Additional Notes</label>
+              <textarea id="accept-notes" name="accept_notes" placeholder="Any additional information" disabled></textarea>
             </div>
           </div>
+        </div>
 
-          <div class="form-group">
-            <label for="guest-names">Guest Names</label>
-            <textarea id="guest-names" name="guest_names" placeholder="Please list the full names of all guests in your party"></textarea>
+        <div id="decline-flow" class="flow-panel" hidden aria-hidden="true">
+          <div class="flow-panel-inner">
+            <div class="form-group">
+              <label for="decline-note">Optional Note</label>
+              <textarea id="decline-note" name="decline_note" placeholder="Any additional information" disabled></textarea>
+            </div>
           </div>
-
-          <div class="form-group">
-            <label for="dietary">Dietary Requirements</label>
-            <textarea id="dietary" name="dietary" placeholder="Any allergies or dietary needs we should know about"></textarea>
-          </div>
-
-        </fieldset>
-
-        <!-- Notes always visible -->
-        <div class="form-group">
-          <label for="notes">Additional Notes</label>
-          <textarea id="notes" name="notes" placeholder="Anything else you'd like us to know"></textarea>
         </div>
 
         <button type="submit" class="submit-btn">Send Reply</button>
       </form>
 
-      <div class="success-msg" id="success-msg" hidden>
-        <span class="success-mark">✦</span>
-        <p id="success-text">Thank you — we look forward to celebrating with you.</p>
-      </div>
+      <section class="post-submit" id="post-submit" hidden aria-live="polite">
+        <p class="confirmation">Thank you — your response has been received.</p>
 
-      <div class="travel-section">
-        <h2>Travel &amp; Parking</h2>
-        <ul class="travel-list">
-          <li>The Willows: limited parking — nearby public parking available</li>
-          <li>Italian Villa at Compton Acres: approx. 30 spaces</li>
-          <li>Venues are close to each other — a taxi between them is easy</li>
-        </ul>
-      </div>
+        <div class="details">
+          <h2>Details</h2>
+
+          <article class="detail-item">
+            <h3>RSVP Deadline</h3>
+            <p>Kindly reply by Monday 13th.</p>
+          </article>
+
+          <article class="detail-item">
+            <h3>Travel</h3>
+            <p>Our ceremony and reception are held at two different venues, approximately 10–15 minutes apart by car.</p>
+          </article>
+
+          <article class="detail-item">
+            <h3>Accommodation</h3>
+            <p>For guests staying in Bournemouth, Hilton Bournemouth is a convenient central option and an easy taxi journey to Compton Acres.</p>
+          </article>
+
+          <article class="detail-item">
+            <h3>Parking</h3>
+            <p>Parking is available at Compton Acres, and guests are welcome to leave cars overnight. Vehicles should be collected by 9.30 am the following morning.</p>
+            <p>There is public parking available near Bournemouth Town Hall. Guests travelling by car are encouraged to check local parking options in advance.</p>
+          </article>
+
+          <article class="detail-item">
+            <h3>Dress Code</h3>
+            <p>Smart attire. Please wear whatever feels comfortable and celebratory.</p>
+          </article>
+        </div>
+      </section>
 
       <a class="back-link" href="../">← Return to Invitation</a>
-
     </div>
   </div>
 
   <script>
     const form = document.getElementById('rsvp-form');
-    const successMsg = document.getElementById('success-msg');
-    const successText = document.getElementById('success-text');
-    const attendingFields = document.getElementById('attending-fields');
-    const radios = form.querySelectorAll('input[name="attendance"]');
+    const acceptFlow = document.getElementById('accept-flow');
+    const declineFlow = document.getElementById('decline-flow');
+    const postSubmit = document.getElementById('post-submit');
+    const leadDietary = document.getElementById('lead-dietary');
+    const leadDetailsWrap = document.getElementById('lead-details-wrap');
+    const leadDietaryDetails = document.getElementById('lead-dietary-details');
+    const adultsList = document.getElementById('adults-list');
+    const childrenList = document.getElementById('children-list');
+    const addAdultBtn = document.getElementById('add-adult');
+    const addChildBtn = document.getElementById('add-child');
 
-    // Show / hide attending fields based on selection
-    radios.forEach(function(radio) {
-      radio.addEventListener('change', function() {
-        if (this.value === 'accept') {
-          attendingFields.hidden = false;
-          attendingFields.querySelector('#adults').required = true;
-        } else {
-          attendingFields.hidden = true;
-          attendingFields.querySelector('#adults').required = false;
-        }
+    const ADULT_LIMIT = 1;
+    const CHILD_LIMIT = 2;
+
+    let adultCount = 0;
+    let childCount = 0;
+
+    function setSectionState(section, isVisible) {
+      section.hidden = !isVisible;
+      section.setAttribute('aria-hidden', String(!isVisible));
+
+      section.querySelectorAll('input, select, textarea, button').forEach((field) => {
+        field.disabled = !isVisible;
+      });
+    }
+
+    function toggleDetailField(selectElement, detailWrap, detailInput) {
+      const show = selectElement.value === 'allergy-other' && !selectElement.disabled;
+      detailWrap.hidden = !show;
+      detailWrap.setAttribute('aria-hidden', String(!show));
+      detailInput.disabled = !show;
+      detailInput.required = show;
+      if (!show) {
+        detailInput.value = '';
+      }
+    }
+
+    function createGuestBlock(type, index) {
+      const block = document.createElement('div');
+      block.className = 'guest-block';
+
+      const labelPrefix = type === 'adult' ? `Adult ${index}` : `Child ${index}`;
+      const dietaryName = `${type}_${index}_dietary`;
+      const detailsName = `${type}_${index}_dietary_details`;
+      const nameName = `${type}_${index}_name`;
+
+      block.innerHTML = `
+        <div class="form-group">
+          <label for="${nameName}">${labelPrefix} Name</label>
+          <input type="text" id="${nameName}" name="${nameName}" required placeholder="${labelPrefix} name">
+        </div>
+        <div class="form-group">
+          <label for="${dietaryName}">Dietary Requirement</label>
+          <select id="${dietaryName}" name="${dietaryName}" required>
+            <option value="">Please select</option>
+            <option value="none">None</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="halal">Halal</option>
+            <option value="gluten-free">Gluten-free</option>
+            <option value="allergy-other">Allergy / Other</option>
+          </select>
+        </div>
+        <div class="form-group flow-panel" hidden aria-hidden="true">
+          <div class="flow-panel-inner">
+            <label for="${detailsName}">Details</label>
+            <input type="text" id="${detailsName}" name="${detailsName}" placeholder="Details" disabled>
+          </div>
+        </div>
+      `;
+
+      const dietarySelect = block.querySelector(`#${dietaryName}`);
+      const detailsWrap = block.querySelector('.flow-panel');
+      const detailsInput = block.querySelector(`#${detailsName}`);
+
+      dietarySelect.addEventListener('change', () => {
+        toggleDetailField(dietarySelect, detailsWrap, detailsInput);
+      });
+
+      return block;
+    }
+
+    function syncButtons() {
+      addAdultBtn.disabled = adultCount >= ADULT_LIMIT || acceptFlow.hidden;
+      addChildBtn.disabled = childCount >= CHILD_LIMIT || acceptFlow.hidden;
+    }
+
+    function setAttendanceMode(mode) {
+      if (mode === 'accept') {
+        setSectionState(acceptFlow, true);
+        setSectionState(declineFlow, false);
+        leadDietary.required = true;
+      } else if (mode === 'decline') {
+        setSectionState(acceptFlow, false);
+        setSectionState(declineFlow, true);
+        leadDietary.required = false;
+      } else {
+        setSectionState(acceptFlow, false);
+        setSectionState(declineFlow, false);
+        leadDietary.required = false;
+      }
+
+      if (mode !== 'accept') {
+        leadDietary.value = '';
+        toggleDetailField(leadDietary, leadDetailsWrap, leadDietaryDetails);
+        adultsList.innerHTML = '';
+        childrenList.innerHTML = '';
+        adultCount = 0;
+        childCount = 0;
+      }
+
+      syncButtons();
+    }
+
+    document.querySelectorAll('input[name="attendance"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        setAttendanceMode(radio.value);
       });
     });
 
-    // Intercept submit → Netlify fetch → inline success
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+    leadDietary.addEventListener('change', () => {
+      toggleDetailField(leadDietary, leadDetailsWrap, leadDietaryDetails);
+    });
 
-      var data = new FormData(form);
-      var attending = data.get('attendance') === 'accept';
+    addAdultBtn.addEventListener('click', () => {
+      if (adultCount >= ADULT_LIMIT) {
+        return;
+      }
+      adultCount += 1;
+      adultsList.appendChild(createGuestBlock('adult', adultCount));
+      syncButtons();
+    });
+
+    addChildBtn.addEventListener('click', () => {
+      if (childCount >= CHILD_LIMIT) {
+        return;
+      }
+      childCount += 1;
+      childrenList.appendChild(createGuestBlock('child', childCount));
+      syncButtons();
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const attendance = form.querySelector('input[name="attendance"]:checked');
+      if (!attendance) {
+        form.reportValidity();
+        return;
+      }
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = new FormData(form);
 
       fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(data).toString()
       })
-      .then(function() {
+      .catch(() => null)
+      .finally(() => {
         form.hidden = true;
-        successMsg.hidden = false;
-        if (!attending) {
-          successText.textContent =
-            'Thank you for letting us know — you will be missed.';
-        }
-      })
-      .catch(function() {
-        // Fallback: still show success to avoid confusion
-        form.hidden = true;
-        successMsg.hidden = false;
+        postSubmit.hidden = false;
+        postSubmit.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
+
+    setAttendanceMode(null);
   </script>
 </body>
 </html>
